@@ -59,7 +59,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
               className="m-0 p-0 overflow-visible bg-transparent border-none cursor-pointer hover:bg-teal-700/10 rounded-md transition-colors"
             >
               <span className="sr-only">The Evergreen Hill</span>
-              <div className="w-16 h-16 rounded-full overflow-visible">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 rounded-full overflow-visible">
                 <img
                   alt="The Evergreen Hill Logo"
                   src={Logo}
@@ -98,28 +98,28 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
 
         {/* Mobile Menu */}
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-          <div className="fixed inset-0 z-50" />
-          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10">
+          <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" />
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-teal-900 via-emerald-900 to-teal-800 text-teal-50 p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10 shadow-xl">
             <div className="flex items-center justify-between">
-              <button type="button" onClick={handleLogoClick} className="-m-1.5 p-1.5 bg-transparent border-none cursor-pointer">
+              <button type="button" onClick={handleLogoClick} className="-m-1.5 p-1.5 bg-transparent border-none cursor-pointer hover:bg-white/10 rounded-md transition-colors">
                 <span className="sr-only">The Evergreen Hill</span>
                 <img
                   alt="The Evergreen Hill Logo"
                   src={Logo}
-                  className="h-8 w-auto"
+                  className="h-16 w-auto sm:h-20"
                 />
               </button>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="-m-2.5 rounded-md p-2.5 text-slate-700"
+                className="-m-2.5 rounded-md p-2.5 text-teal-100 hover:bg-white/10 transition-colors"
               >
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon aria-hidden="true" className="size-6" />
               </button>
             </div>
             <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-slate-500/10">
+              <div className="-my-6 divide-y divide-white/10">
                 <div className="space-y-2 py-6">
                   {[...leftNavigation, ...rightNavigation].map((item) => (
                     <button
@@ -129,7 +129,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                         handleNavigation(item.key)
                         setMobileMenuOpen(false)
                       }}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-slate-900 hover:bg-slate-50 w-full text-left bg-transparent border-none cursor-pointer"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-teal-50 hover:bg-white/10 w-full text-left bg-transparent border-none cursor-pointer transition-colors"
                     >
                       {item.name}
                     </button>

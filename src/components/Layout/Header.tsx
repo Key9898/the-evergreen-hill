@@ -79,7 +79,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
             <img
               alt="The Evergreen Hill Logo"
               src={Logo}
-              className="object-cover h-14 w-14"
+              className="object-cover h-16 w-auto sm:h-20"
             />
           </button>
 
@@ -128,28 +128,28 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
 
         {/* Mobile/Tablet Menu - Right side slide-in */}
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-          <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
-          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10 shadow-xl">
+          <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" />
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-teal-900 via-emerald-900 to-teal-800 text-teal-50 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10 shadow-xl">
             <div className="flex items-center justify-between">
-              <button type="button" onClick={handleLogoClick} className="-m-1.5 p-1.5 bg-transparent border-none cursor-pointer hover:bg-slate-100 rounded-md transition-colors">
+              <button type="button" onClick={handleLogoClick} className="-m-1.5 p-1.5 bg-transparent border-none cursor-pointer hover:bg-white/10 rounded-md transition-colors">
                 <span className="sr-only">The Evergreen Hill</span>
                 <img
                   alt="The Evergreen Hill Logo"
                   src={Logo}
-                  className="h-12 w-auto"
+                  className="h-16 w-auto sm:h-20"
                 />
               </button>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="-m-2.5 rounded-md p-2.5 text-slate-700 hover:bg-slate-100 transition-colors"
+                className="-m-2.5 rounded-md p-2.5 text-teal-100 hover:bg-white/10 transition-colors"
               >
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon aria-hidden="true" className="size-6" />
               </button>
             </div>
             <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-slate-500/10">
+              <div className="-my-6 divide-y divide-white/10">
                 <div className="space-y-2 py-6">
                   {[...leftNavigation, ...rightNavigation].map((item) => (
                     <button
@@ -161,7 +161,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                       }}
                       aria-current={activePage === item.page ? 'page' : undefined}
                       className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold w-full text-left bg-transparent border-none cursor-pointer transition-colors ${
-                        activePage === item.page ? 'bg-teal-50 text-teal-700' : 'text-slate-900 hover:bg-slate-50'
+                        activePage === item.page ? 'bg-white/10 text-teal-200' : 'text-teal-50 hover:bg-white/10'
                       }`}
                     >
                       {item.name}
