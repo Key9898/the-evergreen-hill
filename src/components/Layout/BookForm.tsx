@@ -1,7 +1,7 @@
-import Logo from '../../assets/Logo/The Evergreen Hill.svg'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 
 interface BookFormProps {
   isOpen: boolean
@@ -19,7 +19,12 @@ type Booking = {
   rooms: number
 }
 
-export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSaved }: BookFormProps) {
+export default function BookForm({
+  isOpen,
+  onClose,
+  defaultRoomType,
+  onBookingSaved,
+}: BookFormProps) {
   const [formData, setFormData] = useState({
     checkIn: '',
     checkOut: '',
@@ -33,29 +38,33 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
     phone: '',
     specialRequests: '',
     agreeToTerms: false,
-    agreeToPrivacy: false
+    agreeToPrivacy: false,
   })
 
   useEffect(() => {
     if (isOpen && defaultRoomType) {
-      setFormData(prev => ({ ...prev, roomType: defaultRoomType }))
+      setFormData((prev) => ({ ...prev, roomType: defaultRoomType }))
     }
   }, [isOpen, defaultRoomType])
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value, type } = e.target
     const checked = (e.target as HTMLInputElement).checked
-    
-    setFormData(prev => ({
+
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }))
   }
 
   const handleCounterChange = (field: 'adults' | 'children' | 'rooms', increment: boolean) => {
-    setFormData(prev => {
+    setFormData((prev) => {
       const currentValue = prev[field]
-      let newValue = increment ? currentValue + 1 : Math.max(field === 'adults' || field === 'rooms' ? 1 : 0, currentValue - 1)
-      
+      const newValue = increment
+        ? currentValue + 1
+        : Math.max(field === 'adults' || field === 'rooms' ? 1 : 0, currentValue - 1)
+
       // Handle children ages array
       if (field === 'children') {
         const newChildrenAges = [...prev.childrenAges]
@@ -67,21 +76,21 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
         return {
           ...prev,
           [field]: newValue,
-          childrenAges: newChildrenAges
+          childrenAges: newChildrenAges,
         }
       }
-      
+
       return {
         ...prev,
-        [field]: newValue
+        [field]: newValue,
       }
     })
   }
 
   const handleChildAgeChange = (index: number, age: number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      childrenAges: prev.childrenAges.map((currentAge, i) => i === index ? age : currentAge)
+      childrenAges: prev.childrenAges.map((currentAge, i) => (i === index ? age : currentAge)),
     }))
   }
 
@@ -94,7 +103,7 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
       checkOut: formData.checkOut,
       adults: formData.adults,
       children: formData.children,
-      rooms: formData.rooms
+      rooms: formData.rooms,
     }
 
     try {
@@ -127,17 +136,13 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" aria-hidden="true" />
-      
+
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className="mx-auto max-w-2xl w-full bg-slate-50 rounded-md shadow-lg max-h-[90vh] overflow-y-auto">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between border-b border-slate-200 pb-4">
               <div className="flex items-center gap-3">
-                <img
-                  alt="The Evergreen Hill Logo"
-                  src={Logo}
-                  className="h-8 w-auto"
-                />
+                <img alt="The Evergreen Hill Logo" src="/Logo/logo.svg" className="h-8 w-auto" />
                 <h2 className="text-xl font-bold text-slate-900">Book Your Stay</h2>
               </div>
               <button
@@ -188,7 +193,7 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
             {/* Room Selection */}
             <div className="border border-slate-200 rounded-lg p-4 space-y-4">
               <h3 className="text-lg font-medium text-slate-900">Room & Guests</h3>
-              
+
               {/* Room Counter */}
               <div className="flex items-center justify-between">
                 <div>
@@ -285,9 +290,13 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
                           aria-label={`Age of Child ${index + 1}`}
                           className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
                         >
-                          <option value={-1} disabled>Age of Child {index + 1}</option>
+                          <option value={-1} disabled>
+                            Age of Child {index + 1}
+                          </option>
                           {Array.from({ length: 17 }, (_, i) => (
-                            <option key={i + 1} value={i + 1}>{i + 1} years old</option>
+                            <option key={i + 1} value={i + 1}>
+                              {i + 1} years old
+                            </option>
                           ))}
                         </select>
                       </div>
@@ -309,7 +318,9 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
                 onChange={handleInputChange}
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 placeholder:text-slate-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
               >
-                <option value="" disabled selected>Select room type</option>
+                <option value="" disabled selected>
+                  Select room type
+                </option>
                 <option value="Deluxe Garden View">Deluxe Garden View</option>
                 <option value="Deluxe Mountain View">Deluxe Mountain View</option>
                 <option value="Deluxe Twin Garden View">Deluxe Twin Garden View</option>
@@ -324,10 +335,13 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
             {/* Lead Guest Information */}
             <div className="border-t border-slate-200 pt-6">
               <h3 className="text-lg font-medium text-slate-900 mb-4">Lead Guest Information</h3>
-              
+
               <div>
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-slate-700 mb-2">
+                  <label
+                    htmlFor="firstName"
+                    className="block text-sm font-medium text-slate-700 mb-2"
+                  >
                     Name
                   </label>
                   <input
@@ -343,7 +357,10 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mt-2 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-slate-700 mt-2 mb-2"
+                  >
                     Email Address
                   </label>
                   <input
@@ -359,7 +376,10 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mt-2 mb-2">
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-slate-700 mt-2 mb-2"
+                  >
                     Phone Number
                   </label>
                   <input
@@ -376,7 +396,10 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
               </div>
 
               <div className="mt-2">
-                <label htmlFor="specialRequests" className="block text-sm font-medium text-slate-700 mb-2">
+                <label
+                  htmlFor="specialRequests"
+                  className="block text-sm font-medium text-slate-700 mb-2"
+                >
                   Special Requests (Optional)
                 </label>
                 <textarea
@@ -407,7 +430,7 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
                   I agree to the Terms of Service
                 </label>
               </div>
-              
+
               <div className="flex items-start gap-3">
                 <input
                   id="privacy-policy"
@@ -434,12 +457,14 @@ export default function BookForm({ isOpen, onClose, defaultRoomType, onBookingSa
                 >
                   Cancel
                 </button>
-                <button
+                <motion.button
                   type="submit"
-                  className="px-6 py-2 text-sm font-medium text-white bg-teal-700 border border-transparent rounded-md hover:bg-teal-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-2 text-sm font-medium text-white bg-teal-700 border border-transparent rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                 >
                   Book Now
-                </button>
+                </motion.button>
               </div>
             </div>
           </form>

@@ -1,0 +1,443 @@
+{
+  "nav": {
+    "home": "Home",
+    "rooms": "Rooms & Suites",
+    "experiences": "Experiences",
+    "dining": "Dining & Bar",
+    "spa": "Spa & Wellness",
+    "pool": "Swimming Pool",
+    "activities": "Activities",
+    "gallery": "Gallery",
+    "events": "Events",
+    "location": "Location",
+    "contact": "Contact",
+    "ourStory": "Our Story",
+    "team": "Our Team",
+    "reviews": "Guest Reviews",
+    "faqs": "FAQs"
+  },
+  "hero": {
+    "welcome": "Welcome to",
+    "hotelName": "The Evergreen Hill",
+    "tagline": "A Tranquil Retreat Amidst Nature's Embrace",
+    "bookNow": "Book Now",
+    "explore": "Explore"
+  },
+  "rooms": {
+    "title": "Rooms & Suites",
+    "subtitle": "Discover our carefully designed accommodations",
+    "bannerDesc": "Where timeless colonial charm blends with modern luxury in each of our thoughtfully designed accommodations. Your private sanctuary, offering stunning views of the Kalaw hills, awaits you.",
+    "viewDetails": "View Details",
+    "bookRoom": "Book This Room",
+    "perNight": "per night",
+    "amenities": "Amenities",
+    "findYourSerenity": "Find Your Serenity",
+    "findYourSerenityDesc": "From sunlit mornings with mountain views to cozy evenings spent in comfort, each of our accommodations is a destination in itself. Explore our collection to find the perfect backdrop for your Kalaw story.",
+    "bookNow": "Book Now",
+    "roomFeatures": "Room Features",
+    "available": "available",
+    "fullyBooked": "Fully booked for selected dates",
+    "of": "of",
+    "roomTypes": {
+      "deluxeGarden": "Deluxe Garden View",
+      "deluxeMountain": "Deluxe Mountain View",
+      "deluxeTwinGarden": "Deluxe Twin Garden View",
+      "deluxeTwinMountain": "Deluxe Twin Mountain View",
+      "executiveSuite": "Executive Suite",
+      "familySuite": "Family Suite",
+      "honeymoonSuite": "Honeymoon Suite",
+      "evergreenSuite": "The Evergreen Hill Suite"
+    },
+    "roomDescriptions": {
+      "deluxeGarden": "Elegant room with garden views, featuring colonial-inspired décor and modern amenities for a comfortable stay.",
+      "deluxeMountain": "Spacious room with breathtaking mountain views, perfect for couples seeking tranquility and natural beauty.",
+      "honeymoonSuite": "Romantic suite with private terrace and jacuzzi, perfect for special occasions and intimate getaways.",
+      "evergreenSuite": "Our finest accommodation with separate bedroom, living room, and dining area, offering unparalleled luxury.",
+      "deluxeTwinGarden": "Comfortable twin-bed room with serene garden views, perfect for friends or family members sharing.",
+      "deluxeTwinMountain": "Twin-bed room with panoramic mountain views and modern comforts for a refreshing stay.",
+      "familySuite": "Generous suite with separate living area, ideal for families or groups seeking extra space and comfort.",
+      "executiveSuite": "Luxurious suite with premium amenities and stunning views, designed for discerning travelers."
+    },
+    "features": {
+      "freeWifi": "Free Wi-Fi",
+      "smartTv": "Smart TV",
+      "coffeeTeaMaker": "Coffee/Tea Maker",
+      "airConditioning": "Air Conditioning",
+      "privateBathroom": "Private Bathroom",
+      "gardenView": "Garden View",
+      "mountainView": "Mountain View",
+      "privateBalcony": "Private Balcony",
+      "livingArea": "Living Area",
+      "premiumAmenities": "Premium Amenities",
+      "panoramicView": "Panoramic View",
+      "privateJacuzzi": "Private Jacuzzi",
+      "romanticSetting": "Romantic Setting",
+      "butlerService": "Butler Service",
+      "luxuryAmenities": "Luxury Amenities",
+      "familyFriendly": "Family Friendly"
+    },
+    "standard": {
+      "title": "The Evergreen Hill Standard",
+      "description": "To ensure a seamless and comfortable stay, every room and suite is equipped with our signature selection of thoughtful amenities.",
+      "wifiTitle": "Free Wi-Fi",
+      "wifiDesc": "Complimentary high-speed internet access.",
+      "tvTitle": "Smart TV",
+      "tvDesc": "Streaming apps & international channels.",
+      "coffeeTitle": "Coffee & Tea",
+      "coffeeDesc": "A curated selection of local coffee & tea.",
+      "serviceTitle": "24/7 Service",
+      "serviceDesc": "Dedicated assistance, anytime you need."
+    },
+    "availableCount": "{{count}} of {{total}} available",
+    "guests": "Guests",
+    "size": "sqm"
+  },
+  "booking": {
+    "title": "Book Your Stay",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Guests",
+    "rooms": "Rooms",
+    "search": "Search Availability",
+    "selectDates": "Select dates"
+  },
+  "activities": {
+    "title": "Activities",
+    "departsDaily": "Departs daily at 8:00 AM",
+    "advanceBooking": "All tours require advance booking at least 24 hours.",
+    "price": "Price:",
+    "notices": "Notices",
+    "planAdventure": "Plan Your Adventure",
+    "treks": {
+      "title": "Guided Mountain & Village Treks",
+      "description": "Follow our expert guides on scenic trails through pine forests, rolling hills, and remote ethnic minority villages (such as Palaung, Danu, and Pa-O).",
+      "packages": {
+        "halfDay": "Half-Day Viewpoint Trek (4 hours, Easy)",
+        "fullDay": "Full-Day Village Immersion (8 hours, Moderate) (includes lunch)",
+        "twoDay": "Two-Day Trek to Inle Lake (Advanced) (includes meals & overnight stay)",
+        "pineForest": "Pine Forest Walk (2 hours, Easy)",
+        "sunsetHill": "Sunset Hill Trek (3 hours, Easy)"
+      }
+    },
+    "cycling": {
+      "title": "Cycling & Mountain Biking",
+      "description": "Explore Kalaw and its beautiful surroundings on two wheels. We offer tours for all fitness levels, from leisurely rides to challenging mountain biking trails.",
+      "packages": {
+        "townDiscovery": "Kalaw Town Discovery Ride (2 hours, Easy) (includes bike rental)",
+        "countrysideLoop": "Countryside Loop Adventure (4 hours, Moderate) (includes bike rental)",
+        "reservoirViewpoint": "Reservoir & Viewpoint Ride (3 hours, Easy-Moderate) (includes bike rental)",
+        "caveChallenge": "Myin Ma Hti Cave Challenge (5 hours, Advanced) (includes bike rental)",
+        "selfGuided": "Self-Guided Bike Rental (Half-Day / Full-Day) (includes bike rental)"
+      }
+    },
+    "cultural": {
+      "title": "Cultural & Local Life Tours",
+      "description": "Go beyond the trails and connect with the heart of Kalaw. These tours focus on the culture, history, and daily life of the region's diverse people.",
+      "packages": {
+        "marketTour": "Kalaw Market & Hnee Paya Tour (3 hours) (includes transportation)",
+        "cookingClass": "Traditional Shan Cooking Class (4 hours) (includes all ingredients and lunch)",
+        "elephantCamp": "A Visit to Green Hill Valley Elephant Camp (Half-Day Trip) (includes entrance fee & transportation)",
+        "heritageWalk": "Kalaw Heritage Walk (2 hours)",
+        "teaPlantation": "Local Tea Plantation Tour (3 hours) (includes transportation)"
+      }
+    },
+    "plan": {
+      "title": "Plan Your Adventure",
+      "description": "Let us help you plan the perfect Kalaw adventure. Find essential tips below, or contact our concierge for personalized assistance.",
+      "notices": {
+        "howToBook": "How to Book: All tours and activities can be arranged through our Lead Concierge at the front desk. We recommend booking at least 24 hours in advance.",
+        "whatToBring": "What to Bring: Comfortable walking shoes, a hat, sunscreen, a light jacket, and a reusable water bottle are recommended for all outdoor activities.",
+        "privateTours": "Private & Custom Tours: Want a unique experience? Our concierge can work with you to create a personalized itinerary.",
+        "cancellations": "Cancellations: A fee may apply for tours canceled less than 24 hours in advance. Please contact our concierge for details.",
+        "healthFitness": "Health & Fitness: Some tours require moderate physical fitness. For your safety, please inform our concierge of any health concerns prior to booking.",
+        "pricing": "Pricing: Prices are \"starting from\" and per person, generally including a guide and water. Meals and entrance fees are extra unless specified. Please confirm details upon booking.",
+        "weather": "Weather: Outdoor activities depend on suitable weather. In case of severe weather, our concierge will gladly assist with rescheduling or finding a safe alternative."
+      }
+    },
+    "startingFrom": "Starting from"
+  },
+  "reviews": {
+    "title": "Guest Reviews",
+    "storiesTitle": "Stories From Our Guests",
+    "storiesDesc": "Our greatest measure of success is the memories our guests take with them. Discover the authentic experiences shared by travelers who made us their home in Kalaw.",
+    "basedOn": "Based on",
+    "reviews": "reviews",
+    "shareTitle": "Share Your Evergreen Story",
+    "shareDesc": "Have you recently stayed with us? We'd be grateful to hear about your experience. Your feedback helps other travelers and allows us to grow.",
+    "writeReview": "Write a review",
+    "starReviews": "star reviews",
+    "outOf": "out of 5 stars"
+  },
+  "dining": {
+    "title": "Dining & Bar",
+    "allMenues": "All Menues",
+    "breakfast": "Breakfast",
+    "allDayDining": "All-Day Dining",
+    "dinner": "Dinner",
+    "barLounge": "Bar & Lounge",
+    "bannerTitle": "A Taste of the Highlands",
+    "bannerDesc": "Experience the authentic flavors of the Shan Highlands, reimagined with modern culinary artistry and served against a backdrop of breathtaking mountain views.",
+    "breadcrumbExperiences": "Experiences"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "room": "Room",
+    "suite": "Suite",
+    "notice": "Notice"
+  },
+  "footer": {
+    "description": "Nestled in the serene hills, The Evergreen Hill offers a perfect blend of luxury and nature.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "newsletterText": "Subscribe for exclusive offers",
+    "subscribe": "Subscribe",
+    "emailPlaceholder": "Enter your email",
+    "copyright": "© 2024 The Evergreen Hill. All rights reserved.",
+    "solutions": {
+      "title": "Explore",
+      "rooms": "Rooms & Suites",
+      "experiences": "Experiences",
+      "gallery": "Gallery",
+      "location": "Location"
+    },
+    "support": {
+      "title": "Support",
+      "contact": "Contact Us",
+      "reservations": "Reservations",
+      "faqs": "FAQs"
+    },
+    "hotel": {
+      "title": "The Evergreen Hill",
+      "ourStory": "Our Story",
+      "team": "Our Team",
+      "events": "Events",
+      "reviews": "Guest Reviews"
+    },
+    "policies": {
+      "title": "Policies",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "experiences": {
+    "title": "A World of Experiences",
+    "subtitle": "From serene relaxation to culinary journeys and mountain adventures, discover the curated experiences that await you at The Evergreen Hill.",
+    "posts": {
+      "rooms": {
+        "title": "Your Private Sanctuary",
+        "description": "Discover our collection of thoughtfully designed rooms and suites, where timeless colonial elegance meets modern comfort. Find the perfect backdrop for your serene Kalaw escape.",
+        "category": "Rooms & Suites",
+        "button": "View Your Stay"
+      },
+      "dining": {
+        "title": "A Taste of the Highlands",
+        "description": "Indulge in a culinary journey at our signature restaurant and bar. Our chefs blend authentic Shan flavors with international cuisine, all served with panoramic mountain views.",
+        "category": "Dining & Bar",
+        "button": "View The Restaurant"
+      },
+      "pool": {
+        "title": "Poolside Serenity",
+        "description": "Relax and unwind by our temperature-controlled swimming pool. Order a refreshing drink and soak in the breathtaking, uninterrupted views of the surrounding mountains.",
+        "category": "Swimming Pool",
+        "button": "Relax & Unwind"
+      },
+      "spa": {
+        "title": "For Body & Mind",
+        "description": "Find your balance at our wellness sanctuary. Restore with a traditional Shan massage in our spa or recharge in our fully-equipped fitness center. Your well-being is our priority.",
+        "category": "Spa & Wellness Center",
+        "button": "Discover Wellness"
+      },
+      "activities": {
+        "title": "Adventures in Kalaw",
+        "description": "Kalaw is a paradise for explorers. From guided mountain treks to immersive village tours, our concierge is ready to help you plan your perfect adventure.",
+        "category": "Activities",
+        "button": "Plan Your Adventure"
+      }
+    }
+  },
+  "spa": {
+    "title": "Spa & Wellness Center",
+    "menuTitle": "Our Spa Menu",
+    "menuDesc": "Indulge in treatments that utilize local herbs and traditional techniques for an authentic healing experience.",
+    "fitnessTitle": "Fitness Center",
+    "fitnessDesc": "Maintain your routine or start a new one in our state-of-the-art fitness center, equipped for all your cardio and strength training needs.",
+    "openingHours": {
+      "spa": "Opening Hours: 09:00 AM to 09:00 PM",
+      "fitness": "Opening Hours: 06:00 AM to 10:00 PM"
+    },
+    "treatments": {
+      "shanMassage": "Traditional Shan Massage (60 min) - 60,000 MMK",
+      "aromatherapy": "The Evergreen Aromatherapy (60 min) - 75,000 MMK",
+      "hotStone": "Hot Stone Therapy (90 min) - 110,000 MMK",
+      "bodyScrub": "Herbal Body Scrub & Wrap (75 min) - 95,000 MMK",
+      "mudWrap": "Detoxifying Mud Wrap (60 min) - 85,000 MMK",
+      "facial": "Rejuvenating Signature Facial (60 min) - 80,000 MMK",
+      "deepFacial": "Deep Cleansing Facial (75 min) - 90,000 MMK",
+      "kalawRetreat": "The Kalaw Retreat (3 hours - includes a body scrub, Shan massage, and a mini facial) - 195,000 MMK"
+    },
+    "fitness": {
+      "gym": "The Gym: Featuring treadmills, elliptical trainers, free weights, and strength machines.",
+      "yoga": "Yoga & Meditation: Join our complimentary morning yoga sessions or use the serene space for your own private meditation practice.",
+      "personalTraining": "Personal Training: Our certified trainers are available for personalized sessions. Please book in advance."
+    },
+    "notices": {
+      "complimentary": "Complimentary for all in-house guests.",
+      "dayPass": "Day Pass for non-guests: 20,000 MMK per person."
+    }
+  },
+  "pool": {
+    "title": "Swimming Pool",
+    "subtitle": "Poolside Serenity",
+    "description": "Relax and unwind by our temperature-controlled swimming pool. Order a refreshing drink and soak in the breathtaking, uninterrupted views of the surrounding mountains.",
+    "openingHours": "Daily: 7:00 AM - 9:00 PM",
+    "features": {
+      "temperatureControlled": {
+        "title": "Temperature-Controlled",
+        "description": "Enjoy a comfortable swim any time of day, in any season."
+      },
+      "loungers": {
+        "title": "Poolside Loungers",
+        "description": "Relax and soak up the sun on our comfortable, cushioned sun loungers."
+      },
+      "service": {
+        "title": "Poolside Service",
+        "description": "Order refreshing beverages and light snacks directly to your lounger from our bar."
+      },
+      "views": {
+        "title": "Uninterrupted Mountain Views",
+        "description": "Our pool is perfectly positioned to offer stunning, panoramic views of the Shan highlands."
+      },
+      "location": {
+        "title": "Location",
+        "description": "Ground Floor, Garden Wing"
+      }
+    },
+    "notice": "For in-house guests only. Please note there is no lifeguard on duty."
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "A Glimpse of The Evergreen Hill",
+    "categories": {
+      "all": "All Photos",
+      "hotel": "The Hotel & Scenery",
+      "rooms": "Rooms & Suites",
+      "dining": "Dining & Bar",
+      "spa": "Spa & Wellness Center",
+      "activities": "Activities"
+    },
+    "titles": {
+      "all": "A Glimpse of The Evergreen Hill",
+      "hotel": "Architecture & Landscape",
+      "rooms": "Your Private Sanctuaries",
+      "dining": "A Taste of the Highlands",
+      "spa": "A Haven for Wellness",
+      "activities": "Adventures in Kalaw"
+    },
+    "items": {
+      "estate": "The Evergreen Hill Estate",
+      "welcome": "A Warm Welcome",
+      "goldenHour": "Kalaw's Golden Hour",
+      "pineForests": "Amidst the Pine Forests",
+      "deluxeGarden": "Deluxe Garden View",
+      "deluxeMountain": "Deluxe Mountain View",
+      "honeymoonSuite": "Romantic Honeymoon Suite",
+      "evergreenSuite": "The Evergreen Hill Suite",
+      "deluxeTwinGarden": "Deluxe Twin Garden View",
+      "deluxeTwinMountain": "Deluxe Twin Mountain View",
+      "familySuite": "Spacious Family Suite",
+      "executiveSuite": "The Executive Suite",
+      "mountainDining": "Mountain View Dining",
+      "shanCuisine": "Authentic Shan Cuisine",
+      "cocktails": "Evening Cocktails",
+      "breakfast": "Breakfast with a View",
+      "treatmentRooms": "Tranquil Treatment Rooms",
+      "shanMassage": "Traditional Shan Massage",
+      "fitnessCenter": "State-of-the-Art Fitness Center",
+      "poolside": "Poolside Relaxation",
+      "yoga": "Morning Yoga Sessions",
+      "treks": "Guided Mountain Treks",
+      "cycling": "Cycling Through Villages",
+      "market": "A Trip to the Local Market"
+    }
+  },
+  "location": {
+    "title": "Location",
+    "heading": "Our Home, Kalaw",
+    "paragraph1": "Kalaw is more than a destination; it's a feeling. It's the crisp, pine-scented air of the Shan Highlands, the gentle pace of life, and the lingering charm of its colonial-era villas. A town where misty mornings give way to sunlit afternoons, perfect for exploration or quiet contemplation.",
+    "paragraph2": "We chose this enchanting town as our home because we believe in its power to soothe and inspire. The Evergreen Hill was built to be a reflection of Kalaw's soul—a place that honors its natural beauty and timeless heritage while offering a sanctuary of modern comfort. We invite you to experience Kalaw not just as a tourist, but as our cherished guest.",
+    "addressTitle": "Address & Contact",
+    "address": "The Evergreen Hill, Kalaw, No. 10, Pinewood Road, Ward (3), Kalaw, Shan State, Myanmar",
+    "phone": "+95 9 450 123 459",
+    "email": "info@evergreenhillhotel.com",
+    "directions": "You can get directions on Google Maps"
+  },
+  "ourStory": {
+    "title": "Our Story",
+    "storyTitle": "The Story of The Evergreen Hill",
+    "storyP1": "Our story begins not with bricks and mortar, but with a deep affection for Kalaw. We were captivated by its tranquil hills, the crisp scent of pine in the air, and the timeless charm of its colonial past. We dreamed of creating a place that wasn't just a hotel, but a true sanctuary where others could experience this unique serenity.",
+    "storyP2": "Inspired by the region's rich colonial heritage, The Evergreen Hill was born from a vision to honor this elegant past while embracing the comforts of modern luxury. Every detail, from the classic architectural lines to the locally sourced materials, was thoughtfully chosen to create a space that feels both grand and intuitively welcoming.",
+    "storyP3": "Today, The Evergreen Hill stands as a testament to that dream. It is more than a building on a hill; it is a backdrop for your stories, a haven for your peace of mind, and our heartfelt invitation to you to discover the soul of Kalaw. Welcome to our story.",
+    "hospitalityTitle": "The Heart of Our Hospitality",
+    "hospitalityP1": "We believe true hospitality is not found in grand gestures, but in the quiet, sincere details. It's in the warmth of a genuine smile, the thoughtful anticipation of your needs, and the creation of a space where you feel not just welcomed, but truly at peace.",
+    "hospitalityP2": "Our philosophy is simple: to be your serene home in the Shan hills. We are dedicated to providing intuitive, heartfelt service that allows you to disconnect from the world and reconnect with what truly matters. Your comfort, your memories, and your sense of tranquility are the true measures of our success."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in Touch",
+    "description": "We'd love to hear from you. Whether you have a question about our rooms, services, or anything else, our team is ready to answer all your questions.",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "subject": "Subject",
+      "message": "Your Message",
+      "submit": "Send Message"
+    }
+  },
+  "events": {
+    "title": "Events",
+    "subtitle": "Host Your Special Occasion",
+    "description": "From intimate gatherings to grand celebrations, The Evergreen Hill provides the perfect backdrop for your most memorable moments.",
+    "venues": {
+      "title": "Our Venues",
+      "garden": "Garden Terrace",
+      "ballroom": "Grand Ballroom",
+      "rooftop": "Rooftop Terrace"
+    },
+    "services": {
+      "catering": "Catering Services",
+      "decoration": "Event Decoration",
+      "audioVisual": "Audio-Visual Equipment"
+    }
+  },
+  "team": {
+    "title": "Our Team",
+    "subtitle": "Meet the People Behind The Evergreen Hill",
+    "description": "Our dedicated team is committed to making your stay unforgettable. Get to know the faces that will welcome you."
+  },
+  "faqs": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about your stay"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "resetPassword": "Reset Password"
+  }
+}

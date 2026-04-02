@@ -1,34 +1,43 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { useAnimation } from '../../hooks/useAnimation'
 
 interface ContactFormProps {
   className?: string
 }
 
 export default function ContactForm({ className = '' }: ContactFormProps) {
+  const { fadeInUp } = useAnimation()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
     console.log('Form submitted:', formData)
-    // You can add actual form submission logic here
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }))
   }
 
   return (
-    <div className={className}>
+    <motion.div
+      className={className}
+      variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, margin: '-50px' }}
+    >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
@@ -80,13 +89,15 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
                 onChange={handleChange}
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
               >
-                <option value="" disabled selected>Select a subject</option>
+                <option value="" disabled>
+                  Select a subject
+                </option>
                 <option value="Reservations">Reservations</option>
                 <option value="Concierge Services">Concierge Services</option>
                 <option value="Events & Celebrations">Events & Celebrations</option>
                 <option value="Spa & Wellness">Spa & Wellness</option>
                 <option value="Activities">Activities</option>
-                <option value="General Inquiries">General Inquiries</option> 
+                <option value="General Inquiries">General Inquiries</option>
               </select>
             </div>
           </div>
@@ -109,14 +120,16 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
           </div>
         </div>
         <div className="mt-4 flex justify-end">
-          <button
+          <motion.button
             type="submit"
-            className="rounded-md bg-teal-700 px-6 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-600 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 transition-colors"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="rounded-md bg-teal-700 px-6 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
           >
             Send Message
-          </button>
+          </motion.button>
         </div>
       </form>
-    </div>
+    </motion.div>
   )
 }

@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { XMarkIcon } from '@heroicons/react/24/solid'
-import Logo from '../../assets/Logo/The Evergreen Hill.svg'
+import { useAnimation } from '../../hooks/useAnimation'
 
-export type ActivitiesFormData = {  
+export type ActivitiesFormData = {
   name: string
   phone: string
   email: string
@@ -22,9 +23,7 @@ interface ActivitiesFormProps {
 }
 
 export default function ActivitiesForm({ open = true, onClose, onSubmit }: ActivitiesFormProps) {
-  if (!open) return null
-
-  // Single source of truth for all fields
+  const { fadeInUp } = useAnimation()
   const [formData, setFormData] = useState<ActivitiesFormData>({
     name: '',
     phone: '',
@@ -38,20 +37,17 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
     childrenAges: [],
   })
 
-  // Unified input handler (text/select/textarea)
+  if (!open) return null
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  // Counters for rooms/adults/children + maintain childrenAges
-  const handleCounterChange = (
-    field: 'adults' | 'children' | 'person',
-    increment: boolean
-  ) => {
-    setFormData(prev => {
+  const handleCounterChange = (field: 'adults' | 'children' | 'person', increment: boolean) => {
+    setFormData((prev) => {
       const currentValue = prev[field]
       const min = field === 'children' ? 0 : 1
       const newValue = increment ? currentValue + 1 : Math.max(min, currentValue - 1)
@@ -69,9 +65,8 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
     })
   }
 
-  // Set age for a specific child (typed currentAge)
   const handleChildAgeChange = (index: number, age: number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       childrenAges: prev.childrenAges.map((currentAge: number, i: number) =>
         i === index ? age : currentAge
@@ -79,7 +74,6 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
     }))
   }
 
-  // Single submit handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSubmit?.(formData)
@@ -87,42 +81,58 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
   }
 
   const guestsUnselected = formData.adults === 0 && formData.children === 0
-  const adultLabel = guestsUnselected ? 'Adult and Children' : formData.adults === 1 ? 'Adult' : 'Adults'
-  const childrenLabel = guestsUnselected ? 'Adult and Children' : formData.children === 1 ? 'Child' : 'Children'
+  const adultLabel = guestsUnselected
+    ? 'Adult and Children'
+    : formData.adults === 1
+      ? 'Adult'
+      : 'Adults'
+  const childrenLabel = guestsUnselected
+    ? 'Adult and Children'
+    : formData.children === 1
+      ? 'Child'
+      : 'Children'
 
   return (
     <div className="fixed inset-0 z-50">
-      {/* Backdrop with blur */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Modal */}
       <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6">
-        <div className="w-full max-w-lg sm:max-w-xl rounded-md bg-slate-50 shadow-lg">
-          {/* Header */}
+        <motion.div
+          className="w-full max-w-lg sm:max-w-xl rounded-md bg-slate-50 shadow-lg"
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+        >
           <div className="px-4 sm:px-6">
             <div className="flex items-center justify-between py-2">
               <div className="flex items-center gap-2">
-                <img src={Logo} alt="The Evergreen Hill logo" className="size-6 sm:size-7" />
+                <img
+                  src="/Logo/logo.svg"
+                  alt="The Evergreen Hill logo"
+                  className="size-6 sm:size-7"
+                />
                 <h3 className="text-lg font-semibold text-slate-900">Plan Your Adventure</h3>
               </div>
-              <button
+              <motion.button
                 type="button"
                 onClick={onClose}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 className="inline-flex items-center rounded-md p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700"
                 aria-label="Close"
               >
                 <XMarkIcon className="size-5" />
-              </button>
+              </motion.button>
             </div>
             <div className="border-b border-slate-200/60" />
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="px-4 py-4 sm:px-6 sm:py-6">
-            {/* Name */}
             <div className="flex items-center">
               <div className="flex-1">
-                <label htmlFor="name" className="block text-sm font-medium text-slate-700">Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-slate-700">
+                  Name
+                </label>
                 <input
                   id="name"
                   name="name"
@@ -136,10 +146,11 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
               </div>
             </div>
 
-            {/* Phone + Email */}
             <div className="mt-4 sm:mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-slate-700">Phone</label>
+                <label htmlFor="phone" className="block text-sm font-medium text-slate-700">
+                  Phone
+                </label>
                 <input
                   id="phone"
                   name="phone"
@@ -152,7 +163,9 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
                 />
               </div>
               <div className="flex-1">
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700">Email</label>
+                <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+                  Email
+                </label>
                 <input
                   id="email"
                   name="email"
@@ -166,63 +179,67 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
               </div>
             </div>
 
-            {/* Guests Counters (removed top Person row, added spacing) */}
             <div className="mt-6 sm:mt-8 border border-slate-200 rounded-lg p-4 space-y-4">
               <h3 className="text-lg font-medium text-slate-900">Guests</h3>
 
-              {/* Adult Counter */}
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-medium text-slate-900">{adultLabel}</div>
                   <div className="text-sm text-slate-500">Ages 18 or above</div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <button
+                  <motion.button
                     type="button"
                     onClick={() => handleCounterChange('adults', false)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={formData.adults <= 1}
                   >
                     −
-                  </button>
+                  </motion.button>
                   <span className="w-8 text-center font-medium">{formData.adults}</span>
-                  <button
+                  <motion.button
                     type="button"
                     onClick={() => handleCounterChange('adults', true)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50"
                   >
                     +
-                  </button>
+                  </motion.button>
                 </div>
               </div>
 
-              {/* Children Counter */}
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-medium text-slate-900">{childrenLabel}</div>
                   <div className="text-sm text-slate-500">Ages 0-17</div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <button
+                  <motion.button
                     type="button"
                     onClick={() => handleCounterChange('children', false)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={formData.children <= 0}
                   >
                     −
-                  </button>
+                  </motion.button>
                   <span className="w-8 text-center font-medium">{formData.children}</span>
-                  <button
+                  <motion.button
                     type="button"
                     onClick={() => handleCounterChange('children', true)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50"
                   >
                     +
-                  </button>
+                  </motion.button>
                 </div>
               </div>
 
-              {/* Children Ages */}
               {formData.children > 0 && (
                 <div className="pt-4 border-t border-slate-200">
                   <div className="text-sm text-slate-600 mb-3">
@@ -241,9 +258,13 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
                           aria-label={`Age of Child ${index + 1}`}
                           className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
                         >
-                          <option value={-1} disabled>Age of Child {index + 1}</option>
+                          <option value={-1} disabled>
+                            Age of Child {index + 1}
+                          </option>
                           {Array.from({ length: 17 }, (_, i) => (
-                            <option key={i + 1} value={i + 1}>{i + 1} years old</option>
+                            <option key={i + 1} value={i + 1}>
+                              {i + 1} years old
+                            </option>
                           ))}
                         </select>
                       </div>
@@ -253,10 +274,11 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
               )}
             </div>
 
-            {/* Activity Type + Date */}
             <div className="mt-4 sm:mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
-                <label htmlFor="activityType" className="block text-sm font-medium text-slate-700">Activity Type</label>
+                <label htmlFor="activityType" className="block text-sm font-medium text-slate-700">
+                  Activity Type
+                </label>
                 <select
                   id="activityType"
                   name="activityType"
@@ -265,11 +287,13 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
                   onChange={handleInputChange}
                   className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 placeholder:text-slate-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
                 >
-                  <option value="" disabled>Select activity type</option>
+                  <option value="" disabled>
+                    Select activity type
+                  </option>
                   <option value="Traditional Shan Massage">Half-Day Viewpoint Trek</option>
                   <option value="The Evergreen Aromatherapy">Full-Day Village Immersion</option>
                   <option value="Hot Stone Therapy">Two-Day Trek to Inle Lake</option>
-                  <option value="Herbal Body Scrub & Wrap">Pine Forest Walk</option>    
+                  <option value="Herbal Body Scrub & Wrap">Pine Forest Walk</option>
                   <option value="Detoxifying Mud Wrap">Sunset Hill Trek</option>
                   <option value="Rejuvenating Signature Facial">Sunset Hill Trek</option>
                   <option value="Deep Cleansing Facial">Countryside Loop Adventure</option>
@@ -277,14 +301,18 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
                   <option value="Traditional Shan Massage">Myin Ma Hti Cave Challenge</option>
                   <option value="The Evergreen Aromatherapy">Self-Guided Bike Rental</option>
                   <option value="Hot Stone Therapy">Kalaw Market & Hnee Paya Tour</option>
-                  <option value="Herbal Body Scrub & Wrap">Traditional Shan Cooking Class</option>    
-                  <option value="Detoxifying Mud Wrap">A Visit to Green Hill Valley Elephant Camp</option>
+                  <option value="Herbal Body Scrub & Wrap">Traditional Shan Cooking Class</option>
+                  <option value="Detoxifying Mud Wrap">
+                    A Visit to Green Hill Valley Elephant Camp
+                  </option>
                   <option value="Rejuvenating Signature Facial">Kalaw Heritage Walk</option>
                   <option value="Deep Cleansing Facial">Local Tea Plantation Tour</option>
                 </select>
-              </div>  
+              </div>
               <div>
-                <label htmlFor="date" className="block text-sm font-medium text-slate-700">Date</label>
+                <label htmlFor="date" className="block text-sm font-medium text-slate-700">
+                  Date
+                </label>
                 <input
                   id="date"
                   name="date"
@@ -298,9 +326,10 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
               </div>
             </div>
 
-            {/* Content */}
             <div className="mt-4 sm:mt-6">
-              <label htmlFor="content" className="block text-sm font-medium text-slate-700">Additional Details</label>
+              <label htmlFor="content" className="block text-sm font-medium text-slate-700">
+                Additional Details
+              </label>
               <textarea
                 id="content"
                 name="content"
@@ -313,24 +342,27 @@ export default function ActivitiesForm({ open = true, onClose, onSubmit }: Activ
               />
             </div>
 
-            {/* Actions */}
             <div className="mt-6 flex flex-wrap items-center justify-end gap-3">
-              <button
+              <motion.button
                 type="button"
                 onClick={onClose}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50"
               >
                 Cancel
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className="inline-flex items-center rounded-md bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-600"
               >
                 Submit Request
-              </button>
+              </motion.button>
             </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

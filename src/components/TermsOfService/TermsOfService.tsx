@@ -1,4 +1,6 @@
-import Header from '../Layout/Header'
+import { motion } from 'framer-motion'
+import { useAnimation } from '../../hooks/useAnimation'
+import { Header } from '../Layout'
 import Footer from '../Layout/Footer'
 import ScrollToTopButton from '../Layout/ScrollToTopButton'
 import TermsBanner from './TermsBanner'
@@ -41,46 +43,56 @@ interface TermsOfServiceProps {
 }
 
 export default function TermsOfService({ onNavigate }: TermsOfServiceProps) {
+  const { fadeInUp, staggerContainer } = useAnimation()
   return (
-    <div className="min-h-screen -mt-5">
+    <div className="min-h-screen">
       <Header onNavigate={onNavigate} activePage="ourStory" />
-        <div className="relative -mt-20 sm:-mt-24">
-          <TermsBanner onNavigate={onNavigate} />
-        </div>
+      <div className="relative -mt-24 sm:-mt-28">
+        <TermsBanner onNavigate={onNavigate} />
+      </div>
       <div className="mx-auto max-w-4xl px-4 py-16 pt-12 sm:px-6 sm:py-16 sm:py-12 lg:px-8 lg:py-16 lg:pt-12">
-        {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-8">
+        <motion.div
+          className="text-center mb-8 sm:mb-8"
+          variants={fadeInUp}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, margin: '-50px' }}
+        >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-teal-600">
             Terms of Service
           </h2>
           <p className="mt-4 sm:mt-6 text-lg/8 text-slate-700 max-w-3xl mx-auto">
-            To ensure a clear understanding and a smooth, wonderful stay for all our guests, please review our booking and hotel policies.
+            To ensure a clear understanding and a smooth, wonderful stay for all our guests, please
+            review our booking and hotel policies.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Terms List */}
-        <div className="space-y-6 sm:space-y-8">
+        <motion.div
+          className="space-y-6 sm:space-y-8"
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, margin: '-50px' }}
+        >
           {termsItems.map((item) => (
-            <div key={item.id} className="flex gap-4 sm:gap-6">
+            <motion.div key={item.id} className="flex gap-4 sm:gap-6" variants={fadeInUp}>
               {/* Number Circle */}
               <div className="flex-shrink-0 mb-8">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-teal-700 hover:bg-teal-600 hover:scale-105 text-white rounded-md flex items-center justify-center font-semibold text-sm sm:text-base">
                   {item.id}
                 </div>
               </div>
-              
+
               {/* Content */}
               <div className="flex-1 min-w-0">
                 <h3 className="text-xl font-semibold text-teal-700 mt-1 mb-2 sm:mb-3">
                   {item.title}
                 </h3>
-                <p className="text-base leading-6 sm:leading-7 text-slate-700">
-                  {item.content}
-                </p>
+                <p className="text-base leading-6 sm:leading-7 text-slate-700">{item.content}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
       <ScrollToTopButton />
       <Footer onNavigate={onNavigate} />

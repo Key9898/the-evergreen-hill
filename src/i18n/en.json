@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "roomsAndSuites": "Rooms & Suites",
+    "experiences": "Experiences",
+    "gallery": "Gallery",
+    "ourStory": "Our Story",
+    "location": "Location",
+    "contact": "Contact",
+    "bookNow": "Book Now",
+    "home": "Home"
+  },
+  "hero": {
+    "title": "The Evergreen Hill",
+    "subtitle": "A Highland Retreat in Kalaw",
+    "description": "Nestled among pine forests and rolling hills, The Evergreen Hill offers a sanctuary of calm, comfort, and authentic Myanmar hospitality.",
+    "bookStay": "Book Your Stay",
+    "viewGallery": "View Gallery"
+  },
+  "booking": {
+    "title": "Book Your Stay",
+    "checkIn": "Check-in Date",
+    "checkOut": "Check-out Date",
+    "adults": "Adults",
+    "children": "Children",
+    "rooms": "Room",
+    "roomType": "Room Type",
+    "selectRoomType": "Select room type",
+    "name": "Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "specialRequests": "Special Requests (Optional)",
+    "agreeTerms": "I agree to the Terms of Service",
+    "agreePrivacy": "I agree to the Privacy Policy",
+    "cancel": "Cancel",
+    "submit": "Book Now",
+    "adult": "Adult",
+    "child": "Child",
+    "childrenAges": "For accurate room pricing, make sure to enter your children's correct ages.",
+    "agesAbove": "Ages 18 or above",
+    "ages017": "Ages 0-17"
+  },
+  "rooms": {
+    "title": "Find Your Serenity",
+    "description": "From sunlit mornings with mountain views to cozy evenings spent in comfort, each of our accommodations is a destination in itself.",
+    "bookNow": "Book Now",
+    "viewDetails": "View Details",
+    "available": "{{count}} of {{total}} available",
+    "fullyBooked": "Fully booked for selected dates",
+    "features": "Room Features",
+    "standardTitle": "The Evergreen Hill Standard",
+    "standardDescription": "To ensure a seamless and comfortable stay, every room and suite is equipped with our signature selection of thoughtful amenities.",
+    "checkAvailability": "Check Now",
+    "roomTypes": {
+      "deluxeGarden": "Deluxe Garden View",
+      "deluxeMountain": "Deluxe Mountain View",
+      "honeymoonSuite": "Honeymoon Suite",
+      "evergreenSuite": "The Evergreen Hill Suite",
+      "deluxeTwinGarden": "Deluxe Twin Garden View",
+      "deluxeTwinMountain": "Deluxe Twin Mountain View",
+      "familySuite": "Family Suite",
+      "executiveSuite": "Executive Suite"
+    },
+    "roomDescriptions": {
+      "deluxeGarden": "Experience tranquility in our sun-drenched rooms, where large windows frame breathtaking views of our meticulously manicured gardens, creating a serene and picturesque escape.",
+      "deluxeMountain": "Wake up to breathtaking panoramic views of Kalaw's rolling hills and mist-covered peaks from your private balcony, offering a truly immersive highland experience.",
+      "honeymoonSuite": "Celebrate love in our exquisitely designed suite, featuring a private jacuzzi and a romantic ambiance perfect for unforgettable moments and peaceful relaxation.",
+      "evergreenSuite": "Our most prestigious accommodation, offering unparalleled luxury with expansive living spaces, dedicated butler service, and the finest amenities for an elite experience.",
+      "deluxeTwinGarden": "A perfect blend of comfort and style, featuring two premium twin beds and a peaceful view of our lush gardens for a relaxing shared stay.",
+      "deluxeTwinMountain": "Ideally suited for those seeking shared comfort with a view; enjoy the majestic mountain scenery from a room designed for relaxation and premium living.",
+      "familySuite": "Designed with families in mind, this spacious suite provides the perfect balance of privacy and togetherness, ensuring every family member feels right at home.",
+      "executiveSuite": "Tailored for the sophisticated traveler, our executive suite combines functionality with luxury, offering premium amenities and panoramic views of the highland landscape."
+    }
+  },
+  "footer": {
+    "explore": "Explore",
+    "support": "Support",
+    "theEvergreenHill": "The Evergreen Hill",
+    "policies": "Policies",
+    "contactUs": "Contact Us",
+    "reservations": "Reservations",
+    "faqs": "FAQs",
+    "ourStory": "Our Story",
+    "ourTeam": "Our Team",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "© {{year}} The Evergreen Hill. All rights reserved.",
+    "tagline": "A highland retreat in the heart of Kalaw, Myanmar."
+  },
+  "reviews": {
+    "title": "Guest Reviews",
+    "writeReview": "Write a Review",
+    "name": "Name",
+    "country": "City or Country",
+    "roomType": "Room Type",
+    "rating": "Rating",
+    "date": "Date",
+    "content": "Your Review",
+    "photo": "Choose your photo (optional)",
+    "submit": "Submit Review",
+    "cancel": "Cancel"
+  },
+  "activities": {
+    "title": "Activities & Adventures",
+    "planAdventure": "Plan Your Adventure",
+    "activityType": "Activity Type",
+    "additionalDetails": "Additional Details"
+  },
+  "events": {
+    "title": "Events & Celebrations",
+    "planEvent": "Start Planning Your Event",
+    "eventType": "Type of Event",
+    "guests": "Estimated Number of Guests",
+    "sendInquiry": "Send Inquiry"
+  },
+  "spa": {
+    "title": "Spa & Wellness Center",
+    "bookTreatment": "Book a Treatment",
+    "treatmentType": "Treatment Type",
+    "roomNumber": "Room Number"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "allPhotos": "All Photos",
+    "hotelScenery": "The Hotel & Scenery",
+    "roomsSuites": "Rooms & Suites",
+    "diningBar": "Dining & Bar",
+    "spaWellness": "Spa & Wellness Center",
+    "activitiesTab": "Activities"
+  },
+  "language": {
+    "en": "English",
+    "my": "မြန်မာ"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "showing": "Showing {{from}} to {{to}} of {{total}} results"
+  }
+}

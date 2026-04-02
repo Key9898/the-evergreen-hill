@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
+import { motion } from 'framer-motion'
+import { useAnimation } from '../../hooks/useAnimation'
 import { XMarkIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import Logo from '../../assets/Logo/The Evergreen Hill.svg'
 
 export type ReviewFormData = {
   name: string
@@ -20,16 +21,17 @@ interface ReviewsFormProps {
 }
 
 export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProps) {
-  if (!open) return null
-
+  const { fadeInUp } = useAnimation()
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
-  const [roomType, setRoomType] = useState('')  // NEW
+  const [roomType, setRoomType] = useState('')
   const [rating, setRating] = useState(5)
   const [content, setContent] = useState('')
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
   const avatarFileRef = useRef<File | null>(null)
   const [date, setDate] = useState('')
+
+  if (!open) return null
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null
@@ -48,7 +50,7 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
     const payload: ReviewFormData = {
       name,
       country,
-      roomType,              
+      roomType,
       rating,
       content,
       date,
@@ -64,14 +66,22 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
       {/* Backdrop with blur */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Modal */}
       <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6">
-        <div className="w-full max-w-lg sm:max-w-xl rounded-md bg-slate-50 shadow-lg">
+        <motion.div
+          className="w-full max-w-lg sm:max-w-xl rounded-md bg-slate-50 shadow-lg"
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+        >
           {/* Header */}
           <div className="px-4 sm:px-6">
             <div className="flex items-center justify-between py-2">
               <div className="flex items-center gap-2">
-                <img src={Logo} alt="The Evergreen Hill logo" className="size-6 sm:size-7" />
+                <img
+                  src="/Logo/logo.svg"
+                  alt="The Evergreen Hill logo"
+                  className="size-6 sm:size-7"
+                />
                 <h3 className="text-xl font-semibold text-slate-900">Write a Review</h3>
               </div>
               <button
@@ -92,14 +102,20 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
             {/* Avatar + Name (inline) */}
             <div className="flex items-center gap-4">
               {avatarPreview ? (
-                <img src={avatarPreview} alt="Avatar preview" className="size-16 rounded-full object-cover" />
+                <img
+                  src={avatarPreview}
+                  alt="Avatar preview"
+                  className="size-16 rounded-full object-cover"
+                />
               ) : (
                 <div className="size-16 rounded-full bg-slate-100 flex items-center justify-center">
                   <UserCircleIcon className="size-10 text-slate-400" />
                 </div>
               )}
               <div className="flex-1">
-                <label htmlFor="name" className="block text-sm font-medium text-slate-700">Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-slate-700">
+                  Name
+                </label>
                 <input
                   id="name"
                   type="text"
@@ -115,7 +131,9 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
             {/* Country + Room Type */}
             <div className="mt-4 sm:mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
-                <label htmlFor="country" className="block text-sm font-medium text-slate-700">City or Country</label>
+                <label htmlFor="country" className="block text-sm font-medium text-slate-700">
+                  City or Country
+                </label>
                 <input
                   id="country"
                   type="text"
@@ -127,7 +145,9 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
                 />
               </div>
               <div>
-                <label htmlFor="roomType" className="block text-sm font-medium text-slate-700">Room Type</label>
+                <label htmlFor="roomType" className="block text-sm font-medium text-slate-700">
+                  Room Type
+                </label>
                 <select
                   id="roomType"
                   name="roomType"
@@ -136,7 +156,9 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
                   onChange={(e) => setRoomType(e.target.value)}
                   className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 placeholder:text-slate-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
                 >
-                  <option value="" disabled>Select room type</option>
+                  <option value="" disabled>
+                    Select room type
+                  </option>
                   <option value="Deluxe Garden View">Deluxe Garden View</option>
                   <option value="Deluxe Mountain View">Deluxe Mountain View</option>
                   <option value="Deluxe Twin Garden View">Deluxe Twin Garden View</option>
@@ -152,7 +174,9 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
             {/* Rating + Date */}
             <div className="mt-4 sm:mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
-                <label htmlFor="rating" className="block text-sm font-medium text-slate-700">Rating</label>
+                <label htmlFor="rating" className="block text-sm font-medium text-slate-700">
+                  Rating
+                </label>
                 <select
                   id="rating"
                   value={rating}
@@ -167,7 +191,9 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
                 </select>
               </div>
               <div>
-                <label htmlFor="date" className="block text-sm font-medium text-slate-700">Date</label>
+                <label htmlFor="date" className="block text-sm font-medium text-slate-700">
+                  Date
+                </label>
                 <input
                   id="date"
                   type="date"
@@ -182,7 +208,9 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
 
             {/* Content */}
             <div className="mt-4 sm:mt-6">
-              <label htmlFor="content" className="block text-sm font-medium text-slate-700">Your Review</label>
+              <label htmlFor="content" className="block text-sm font-medium text-slate-700">
+                Your Review
+              </label>
               <textarea
                 id="content"
                 rows={5}
@@ -196,7 +224,9 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
 
             {/* Optional photo upload */}
             <div className="mt-4 sm:mt-6">
-              <label htmlFor="avatar" className="block text-sm font-medium text-slate-700">Choose your photo (optional)</label>
+              <label htmlFor="avatar" className="block text-sm font-medium text-slate-700">
+                Choose your photo (optional)
+              </label>
               <input
                 id="avatar"
                 type="file"
@@ -215,15 +245,17 @@ export default function ReviewsForm({ open, onClose, onSubmit }: ReviewsFormProp
               >
                 Cancel
               </button>
-              <button
+              <motion.button
                 type="submit"
                 className="inline-flex items-center rounded-md bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-600"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Submit Review
-              </button>
+              </motion.button>
             </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

@@ -17,23 +17,29 @@ export default function Breadcrumbs({ pages, onNavigate, variant = 'light' }: Br
       onNavigate(page)
     }
   }
-  const textColors = variant === 'dark' ? {
-    homeIcon: 'text-white/70 hover:text-white',
-    chevron: 'text-white/50',
-    text: 'text-white/80 hover:text-white'
-  } : {
-    homeIcon: 'text-slate-400 hover:text-slate-500',
-    chevron: 'text-slate-400',
-    text: 'text-slate-500 hover:text-slate-700'
-  }
+  const textColors =
+    variant === 'dark'
+      ? {
+          homeIcon: 'text-white/70 hover:text-white',
+          chevron: 'text-white/50',
+          text: 'text-white/80 hover:text-white',
+        }
+      : {
+          homeIcon: 'text-slate-400 hover:text-slate-500',
+          chevron: 'text-slate-400',
+          text: 'text-slate-500 hover:text-slate-700',
+        }
   return (
-    <nav aria-label="Breadcrumb" className="rounded-md px-4 py-2 text-xs text-white bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all duration-300 sm:text-sm md:text-base backdrop-blur-md shadow-lg hover:shadow-xl">
+    <nav
+      aria-label="Breadcrumb"
+      className="rounded-md px-4 py-2 text-xs text-white bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all duration-300 sm:text-sm md:text-base backdrop-blur-md shadow-lg hover:shadow-xl"
+    >
       <ol role="list" className="flex items-center space-x-4">
         <li>
           <div>
-            <button 
+            <button
               type="button"
-              onClick={() => handleNavigation('#home')} 
+              onClick={() => handleNavigation('#home')}
               className="focus:outline-none"
             >
               <HomeIcon aria-hidden="true" className={`size-5 shrink-0 ${textColors.homeIcon}`} />
@@ -44,7 +50,10 @@ export default function Breadcrumbs({ pages, onNavigate, variant = 'light' }: Br
         {pages.map((page) => (
           <li key={page.name}>
             <div className="flex items-center">
-              <ChevronRightIcon aria-hidden="true" className={`size-5 shrink-0 ${textColors.chevron}`} />
+              <ChevronRightIcon
+                aria-hidden="true"
+                className={`size-5 shrink-0 ${textColors.chevron}`}
+              />
               {page.current ? (
                 <span
                   aria-current="page"

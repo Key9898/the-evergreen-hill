@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(grep -rl \"from ''''@storybook/react''''\" src/components --include=\"*.stories.tsx\")",
+      "Bash(ls -1 \"C:\\\\Users\\\\keych\\\\Development\\\\Projects\\\\Personal\\\\Evergreen Hill\\\\src\\\\pages\"\" 2>/dev/null || echo \"pages directory does not exist \")",
+      "Bash(npx -y firebase-tools@latest --version)",
+      "Bash(npx -y firebase-tools@latest login)",
+      "Bash(npx -y firebase-tools@latest use)",
+      "Bash(ls \"C:/Users/keych/Development/Projects/Personal/the-evergreen-hill/src/components/Rooms&Suites/\")",
+      "Bash(ls \"C:/Users/keych/Development/Projects/Personal/the-evergreen-hill/src/components/Dining&Bar/\")",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/keych/Development/Projects/Personal/the-evergreen-hill/**)",
+      "Bash(done)",
+      "Bash(do cat:*)",
+      "Bash(xargs grep:*)",
+      "Bash(npx shadcn@latest add @mapcn/map --yes)",
+      "Bash(npx shadcn@latest add @mapcn/map)",
+      "Bash(npx shadcn@latest add @mapcn/map --overwrite)",
+      "Bash(npm list:*)",
+      "Bash(npm uninstall:*)"
+    ]
+  }
+}
