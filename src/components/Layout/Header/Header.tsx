@@ -45,18 +45,18 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="sticky top-0 z-50 pt-5"
+        className="sticky top-0 z-50 pt-5 pb-20 sm:pb-24 lg:pb-0"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-visible">
           <nav
             aria-label="Global"
-            className="grid grid-cols-3 items-center p-2 lg:p-4 bg-teal-950/80 backdrop-blur-md shadow-2xl rounded-xl border border-white/10 overflow-visible"
+            className="relative grid grid-cols-3 items-center p-2 lg:p-4 bg-teal-950/80 backdrop-blur-md shadow-2xl rounded-xl border border-white/10 overflow-visible"
           >
             {/* Left Section: LanguageSwitcher */}
             <div className="flex justify-start items-center">
               <LanguageSwitcher />
-              
-              {/* Desktop Left Nav - only visible on LG */}
+
+              {/* Desktop Left Nav */}
               <div className="hidden lg:flex lg:gap-x-8 lg:items-center ml-8">
                 {leftNavigation.map((item) => (
                   <motion.button
@@ -78,23 +78,40 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
               </div>
             </div>
 
-            {/* Center Section: Logo */}
+            {/* Center Section */}
             <div className="flex justify-center">
+              {/* Desktop logo — in normal grid flow */}
               <motion.button
                 type="button"
                 onClick={handleLogoClick}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative z-10 p-1 bg-transparent border-none cursor-pointer rounded-xl"
+                className="hidden lg:block p-1 bg-transparent border-none cursor-pointer rounded-xl"
               >
                 <span className="sr-only">The Evergreen Hill</span>
                 <img
                   alt="The Evergreen Hill Logo"
                   src="/Logo/logo.svg"
-                  className="object-contain h-20 w-auto sm:h-24 lg:h-16"
+                  className="object-contain h-16 w-auto"
                 />
               </motion.button>
             </div>
+
+            {/* Mobile/Tablet logo — absolute, overflows below nav bar */}
+            <motion.button
+              type="button"
+              onClick={handleLogoClick}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="lg:hidden absolute left-1/2 -translate-x-1/2 top-1/2 z-20 bg-transparent border-none cursor-pointer p-0"
+            >
+              <span className="sr-only">The Evergreen Hill</span>
+              <img
+                alt="The Evergreen Hill Logo"
+                src="/Logo/logo.svg"
+                className="object-contain h-28 w-auto sm:h-32 drop-shadow-2xl"
+              />
+            </motion.button>
 
             {/* Right Section: Hamburger / Desktop Right Nav */}
             <div className="flex justify-end items-center">
@@ -127,7 +144,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                 />
               </div>
 
-              {/* Mobile/Tablet Hamburger Menu */}
+              {/* Mobile/Tablet Hamburger */}
               <div className="flex lg:hidden">
                 <motion.button
                   type="button"
