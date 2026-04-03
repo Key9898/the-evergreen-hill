@@ -14,15 +14,15 @@ import ForgotPasswordModal from '../Auth/ForgotPasswordModal'
 import { useHeader } from '../../hooks/useHeader'
 
 const leftNavigation = [
-  { tKey: 'nav.rooms', key: 'roomsAndSuites' },
-  { tKey: 'nav.experiences', key: 'experiences' },
-  { tKey: 'nav.gallery', key: 'gallery' },
+  { name: 'Rooms & Suites', key: 'roomsAndSuites' },
+  { name: 'Experiences', key: 'experiences' },
+  { name: 'Gallery', key: 'gallery' },
 ]
 
 const rightNavigation = [
-  { tKey: 'nav.ourStory', key: 'ourStory' },
-  { tKey: 'nav.location', key: 'location' },
-  { tKey: 'nav.contact', key: 'contact' },
+  { name: 'Our Story', key: 'ourStory' },
+  { name: 'Location', key: 'location' },
+  { name: 'Contact', key: 'contact' },
 ]
 
 interface HeroSectionProps {
@@ -71,7 +71,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {t(item.tKey)}
+                  {item.name}
                 </motion.button>
               ))}
             </div>
@@ -109,7 +109,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {t(item.tKey)}
+                  {item.name}
                 </motion.button>
               ))}
             </div>
@@ -178,7 +178,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                       whileHover={{ x: 4 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {t(item.tKey)}
+                      {item.name}
                     </motion.button>
                   ))}
                 </div>
