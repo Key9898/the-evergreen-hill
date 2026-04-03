@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
@@ -13,15 +14,15 @@ import ForgotPasswordModal from '../Auth/ForgotPasswordModal'
 import { useHeader } from '../../hooks/useHeader'
 
 const leftNavigation = [
-  { name: 'Rooms & Suites', href: '#', key: 'roomsAndSuites' },
-  { name: 'Experiences', href: '#', key: 'experiences' },
-  { name: 'Gallery', href: '#', key: 'gallery' },
+  { tKey: 'nav.rooms', key: 'roomsAndSuites' },
+  { tKey: 'nav.experiences', key: 'experiences' },
+  { tKey: 'nav.gallery', key: 'gallery' },
 ]
 
 const rightNavigation = [
-  { name: 'Our Story', href: '#', key: 'ourStory' },
-  { name: 'Location', href: '#', key: 'location' },
-  { name: 'Contact', href: '#', key: 'contact' },
+  { tKey: 'nav.ourStory', key: 'ourStory' },
+  { tKey: 'nav.location', key: 'location' },
+  { tKey: 'nav.contact', key: 'contact' },
 ]
 
 interface HeroSectionProps {
@@ -31,6 +32,7 @@ interface HeroSectionProps {
 export default function HeroSection({ onNavigate }: HeroSectionProps) {
   const [bookFormOpen, setBookFormOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { t } = useTranslation()
   const { fadeInUp, fadeInDown, staggerContainer } = useAnimation()
   const { authModal, openAuthModal, closeAuthModal } = useHeader(onNavigate)
 
@@ -63,13 +65,13 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
               {leftNavigation.map((item) => (
                 <motion.button
                   type="button"
-                  key={item.name}
+                  key={item.key}
                   onClick={() => handleNavigation(item.key)}
                   className="text-sm font-semibold text-white hover:text-teal-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {item.name}
+                  {t(item.tKey)}
                 </motion.button>
               ))}
             </div>
@@ -101,13 +103,13 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
               {rightNavigation.map((item) => (
                 <motion.button
                   type="button"
-                  key={item.name}
+                  key={item.key}
                   onClick={() => handleNavigation(item.key)}
                   className="text-sm font-semibold text-white hover:text-teal-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {item.name}
+                  {t(item.tKey)}
                 </motion.button>
               ))}
             </div>
@@ -167,7 +169,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                   {[...leftNavigation, ...rightNavigation].map((item) => (
                     <motion.button
                       type="button"
-                      key={item.name}
+                      key={item.key}
                       onClick={() => {
                         handleNavigation(item.key)
                         setMobileMenuOpen(false)
@@ -176,7 +178,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                       whileHover={{ x: 4 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {item.name}
+                      {t(item.tKey)}
                     </motion.button>
                   ))}
                 </div>
@@ -230,7 +232,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
             >
               <motion.div className="mb-4 sm:mb-6 flex justify-center" variants={fadeInDown}>
                 <div className="relative rounded-md px-4 py-2 text-xs text-white bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all duration-300 sm:text-sm md:text-base backdrop-blur-md shadow-lg hover:shadow-xl">
-                  Welcome to The Evergreen Hill, Kalaw
+                  {t('hero.welcome')}
                 </div>
               </motion.div>
 
@@ -239,18 +241,16 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                   className="text-3xl font-bold tracking-tight text-balance text-white leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
                   variants={fadeInDown}
                 >
-                  Timeless Elegance
+                  {t('hero.title1')}
                   <br className="hidden sm:inline" />
-                  <span className="sm:hidden"> </span>Evergreen Serenity
+                  <span className="sm:hidden"> </span>{t('hero.title2')}
                 </motion.h1>
 
                 <motion.p
                   className="mx-auto max-w-2xl text-base font-medium text-pretty text-slate-100 leading-relaxed sm:text-lg md:text-xl lg:max-w-3xl"
                   variants={fadeInUp}
                 >
-                  Nestled amidst the pine-covered hills of Kalaw, our colonial-inspired sanctuary
-                  offers a perfect blend of classic charm and modern comfort. Unwind, explore, and
-                  create timeless memories.
+                  {t('hero.description')}
                 </motion.p>
 
                 <motion.div
@@ -264,7 +264,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Book Your Stay
+                    {t('hero.bookYourStay')}
                   </motion.button>
                   <motion.button
                     type="button"
@@ -273,7 +273,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                     whileHover={{ scale: 1.05, x: 4 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    View Gallery
+                    {t('hero.viewGallery')}
                     <span aria-hidden="true" className="ml-1">
                       →
                     </span>

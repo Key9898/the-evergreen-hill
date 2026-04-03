@@ -17,11 +17,12 @@
     "faqs": "FAQs"
   },
   "hero": {
-    "welcome": "Welcome to",
-    "hotelName": "The Evergreen Hill",
-    "tagline": "A Tranquil Retreat Amidst Nature's Embrace",
-    "bookNow": "Book Now",
-    "explore": "Explore"
+    "welcome": "Welcome to The Evergreen Hill, Kalaw",
+    "title1": "Timeless Elegance",
+    "title2": "Evergreen Serenity",
+    "description": "Nestled amidst the pine-covered hills of Kalaw, our colonial-inspired sanctuary offers a perfect blend of classic charm and modern comfort. Unwind, explore, and create timeless memories.",
+    "bookYourStay": "Book Your Stay",
+    "viewGallery": "View Gallery"
   },
   "rooms": {
     "title": "Rooms & Suites",
