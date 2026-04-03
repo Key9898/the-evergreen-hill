@@ -157,21 +157,21 @@
 **Priority: HIGH | Impact: HIGH**
 
 #### 2.1 Pre-deployment
-- [ ] Environment variables setup
-- [ ] Error handling & logging
-- [ ] Performance optimization
+- [x] Environment variables setup (Vercel dashboard — Production + Preview)
+- [x] Error handling & logging (firebase.ts guard + main.tsx error boundary)
+- [ ] Performance optimization (code splitting — future)
 - [x] SEO optimization (meta tags, Open Graph) - Added to index.html
 
 #### 2.2 Deployment
-- [ ] Deploy to Vercel/Netlify
-- [ ] Configure custom domain
-- [ ] SSL certificate
-- [ ] Set up CI/CD
+- [x] Deploy to Vercel (live at vercel.app domain)
+- [ ] ~~Configure custom domain~~ (using Vercel domain — not needed)
+- [x] SSL certificate (Vercel auto-managed)
+- [x] CI/CD — GitHub Actions `.github/workflows/ci.yml` (lint + build + test on every push/PR)
 
 #### 2.3 Post-deployment
-- [ ] Monitoring setup
-- [ ] Error tracking (Sentry)
-- [ ] Analytics (Google Analytics)
+- [ ] Monitoring setup (future)
+- [x] Error tracking — Sentry (`@sentry/react`, browserTracingIntegration, 20% sample rate)
+- [x] Analytics — Firebase Analytics (isSupported guard, active in firebase.ts)
 
 ---
 
@@ -186,9 +186,12 @@
 - [x] Framer Motion animations implemented
 
 ### Phase 2 Complete When:
-- Site live on production domain
-- All features working in production
-- Monitoring and analytics active
+- [x] Site live on production domain (Vercel)
+- [x] Firebase env vars set in Vercel (Production environment)
+- [x] CI/CD pipeline active (GitHub Actions)
+- [x] Error tracking active (Sentry)
+- [x] Analytics active (Firebase Analytics)
+- [ ] Performance optimization (optional — future)
 
 ---
 
@@ -206,8 +209,8 @@
 1. ~~Firebase Setup~~ - ✅ Complete (auth, firestore, analytics configured)
 2. ~~Firebase Backend Services~~ - ✅ Complete (auth.ts, api.ts, reviews.ts, inquiries.ts — all hooks live)
 3. ~~Map Library Migration~~ - ✅ Complete (mapcn replaces google-map-react)
-4. **Complete Myanmar Translations** - Expand my.json to match en.json (~240 lines needed)
-5. **Phase 2** - Production Deployment
+4. ~~Complete Myanmar Translations~~ - ✅ Complete (my.json fully matches en.json)
+5. ~~Phase 2~~ - ✅ Complete (Vercel live, CI/CD, Sentry, Firebase Analytics)
 
 ---
 
