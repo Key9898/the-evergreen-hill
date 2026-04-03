@@ -159,7 +159,7 @@
 #### 2.1 Pre-deployment
 - [x] Environment variables setup (Vercel dashboard — Production + Preview)
 - [x] Error handling & logging (firebase.ts guard + main.tsx error boundary)
-- [ ] Performance optimization (code splitting — future)
+- [ ] ~~Performance optimization~~ (optional — not required)
 - [x] SEO optimization (meta tags, Open Graph) - Added to index.html
 
 #### 2.2 Deployment
@@ -191,7 +191,7 @@
 - [x] CI/CD pipeline active (GitHub Actions)
 - [x] Error tracking active (Sentry)
 - [x] Analytics active (Firebase Analytics)
-- [ ] Performance optimization (optional — future)
+- [ ] ~~Performance optimization~~ (optional — not required)
 
 ---
 
