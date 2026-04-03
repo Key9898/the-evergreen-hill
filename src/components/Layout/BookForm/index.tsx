@@ -65,13 +65,12 @@ export default function BookForm({
         ? currentValue + 1
         : Math.max(field === 'adults' || field === 'rooms' ? 1 : 0, currentValue - 1)
 
-      // Handle children ages array
       if (field === 'children') {
         const newChildrenAges = [...prev.childrenAges]
         if (increment && newValue > currentValue) {
-          newChildrenAges.push(-1) // Add new child with placeholder value
+          newChildrenAges.push(-1)
         } else if (!increment && newValue < currentValue) {
-          newChildrenAges.pop() // Remove last child
+          newChildrenAges.pop()
         }
         return {
           ...prev,
@@ -112,7 +111,6 @@ export default function BookForm({
       list.push(booking)
       localStorage.setItem('eh_bookings', JSON.stringify(list))
     } catch {
-      // If parsing/storage fails, initialize with the single booking
       localStorage.setItem('eh_bookings', JSON.stringify([booking]))
     }
 
@@ -120,7 +118,6 @@ export default function BookForm({
     onClose()
   }
 
-  // Guests labels (compute outside JSX)
   const guestsUnselected = formData.adults === 0 && formData.children === 0
   const adultLabel = guestsUnselected
     ? 'Adult and Children'
@@ -157,7 +154,6 @@ export default function BookForm({
           </div>
 
           <form onSubmit={handleSubmit} className="px-6 pb-6 space-y-6">
-            {/* Booking Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="checkIn" className="block text-sm font-medium text-slate-700 mb-2">
@@ -190,11 +186,9 @@ export default function BookForm({
               </div>
             </div>
 
-            {/* Room Selection */}
             <div className="border border-slate-200 rounded-lg p-4 space-y-4">
               <h3 className="text-lg font-medium text-slate-900">Room & Guests</h3>
 
-              {/* Room Counter */}
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-medium text-slate-900">Room</div>
@@ -219,7 +213,6 @@ export default function BookForm({
                 </div>
               </div>
 
-              {/* Adult Counter */}
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-medium text-slate-900">{adultLabel}</div>
@@ -245,7 +238,6 @@ export default function BookForm({
                 </div>
               </div>
 
-              {/* Children Counter */}
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-medium text-slate-900">{childrenLabel}</div>
@@ -271,7 +263,6 @@ export default function BookForm({
                 </div>
               </div>
 
-              {/* Children Ages */}
               {formData.children > 0 && (
                 <div className="pt-4 border-t border-slate-200">
                   <div className="text-sm text-slate-600 mb-3">
@@ -306,7 +297,6 @@ export default function BookForm({
               )}
             </div>
 
-            {/* Room Type Selection */}
             <div>
               <label htmlFor="roomType" className="block text-sm font-medium text-slate-700 mb-2">
                 Room Type
@@ -318,7 +308,7 @@ export default function BookForm({
                 onChange={handleInputChange}
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 placeholder:text-slate-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Select room type
                 </option>
                 <option value="Deluxe Garden View">Deluxe Garden View</option>
@@ -332,7 +322,6 @@ export default function BookForm({
               </select>
             </div>
 
-            {/* Lead Guest Information */}
             <div className="border-t border-slate-200 pt-6">
               <h3 className="text-lg font-medium text-slate-900 mb-4">Lead Guest Information</h3>
 
@@ -414,7 +403,6 @@ export default function BookForm({
               </div>
             </div>
 
-            {/* Terms and Privacy Policy */}
             <div className="border-t border-slate-200 pt-6 space-y-4">
               <div className="flex items-start gap-3">
                 <input
@@ -447,7 +435,6 @@ export default function BookForm({
               </div>
             </div>
 
-            {/* Submit Button */}
             <div className="border-t border-slate-200 pt-6">
               <div className="flex gap-3 justify-end">
                 <button

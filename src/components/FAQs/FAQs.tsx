@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
 import { Header } from '../Layout'
 import FAQsBanner from './FAQsBanner'
-import Footer from '../Layout/Footer'
-import ScrollToTopButton from '../Layout/ScrollToTopButton'
+import { Footer } from '../Layout'
+import { ScrollToTopButton } from '../Layout'
 
 const bookingPaymentFaqs = [
   {

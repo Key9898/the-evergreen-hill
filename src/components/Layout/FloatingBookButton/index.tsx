@@ -11,7 +11,6 @@ export default function FloatingBookButton({ onClick }: FloatingBookButtonProps)
 
   useEffect(() => {
     const toggleVisibility = () => {
-      // Show button after scrolling down 300px
       if (window.pageYOffset > 300) {
         setIsVisible(true)
       } else {
@@ -36,15 +35,23 @@ export default function FloatingBookButton({ onClick }: FloatingBookButtonProps)
           }}
           whileTap={{ scale: 0.95 }}
           onClick={onClick}
-          className="fixed bottom-8 left-8 z-40 group flex items-center gap-3 bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-6 py-4 rounded-full shadow-2xl border border-white/20 focus:outline-none"
+          className="fixed bottom-8 left-8 z-40 group flex items-center bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-md shadow-2xl border border-white/20 focus:outline-none
+            p-3
+            md:gap-2 md:px-5 md:py-3
+            lg:gap-3 lg:px-6 lg:py-4"
         >
-          <div className="bg-white/20 p-2 rounded-full group-hover:rotate-12 transition-transform duration-300">
-            <CalendarDaysIcon className="size-6 text-white" />
+          <div className="bg-white/20 rounded-md transition-transform duration-300
+            p-1.5 group-hover:rotate-12
+            md:p-1.5
+            lg:p-2">
+            <CalendarDaysIcon className="text-white size-5 lg:size-6" />
           </div>
-          <span className="font-bold tracking-wide uppercase text-sm">Book Now</span>
+          <span className="font-bold tracking-wide uppercase hidden md:inline text-xs lg:text-sm">
+            Book Now
+          </span>
 
-          {/* Subtle pulse effect */}
-          <div className="absolute inset-0 -z-10 rounded-full bg-teal-500/30 animate-ping" />
+          {/* Pulse — desktop only */}
+          <div className="absolute inset-0 -z-10 rounded-md bg-teal-500/30 animate-ping hidden lg:block" />
         </motion.button>
       )}
     </AnimatePresence>

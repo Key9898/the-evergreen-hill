@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
-import Breadcrumbs from '../Layout/Breadcrumbs'
+import { Breadcrumbs } from '../Layout'
 const DiningBarImg = '/DiningAndBar/dining_bar_banner_img.jpg'
 
 interface DiningBarBannerProps {

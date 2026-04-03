@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useAnimation } from '../../hooks/useAnimation'
-import BookForm from './BookForm'
+import { useAnimation } from '../../../hooks/useAnimation'
+import BookForm from '../BookForm'
 
 interface IconProps {
   className?: string
@@ -236,7 +236,6 @@ export default function Footer({ onNavigate }: FooterProps) {
         </div>
       </footer>
 
-      {/* Book Form Modal */}
       {bookFormOpen && <BookForm isOpen={bookFormOpen} onClose={() => setBookFormOpen(false)} />}
     </>
   )

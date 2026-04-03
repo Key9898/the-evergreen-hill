@@ -2,8 +2,8 @@ import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/2
 import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
 import { Header } from '../Layout'
-import Footer from '../Layout/Footer'
-import ScrollToTopButton from '../Layout/ScrollToTopButton'
+import { Footer } from '../Layout'
+import { ScrollToTopButton } from '../Layout'
 import LocationBanner from './LocationBanner'
 import LocationMap from './LocationMap'
 import GettingHere from './GettingHere'
@@ -121,11 +121,16 @@ export default function Location({ onNavigate }: { onNavigate: (page: string) =>
                   <dt className="flex-none w-6">
                     <span className="sr-only">Directions</span>
                   </dt>
-                  <dd className="text-teal-500">
-                    <span aria-hidden="true" className="ml-1">
-                      ←
-                    </span>{' '}
-                    You can get directions on Google Maps
+                  <dd>
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&destination=20.633333,96.566666`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-teal-600 hover:text-teal-700 hover:underline font-medium transition-colors"
+                    >
+                      <span aria-hidden="true">←</span>
+                      You can get directions on Google Maps
+                    </a>
                   </dd>
                 </div>
               </dl>

@@ -1,12 +1,18 @@
 import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation()
   const currentLang = i18n.language?.startsWith('my') ? 'my' : 'en'
 
+  useEffect(() => {
+    document.documentElement.lang = currentLang
+  }, [currentLang])
+
   const toggle = () => {
     const next = currentLang === 'en' ? 'my' : 'en'
     i18n.changeLanguage(next)
+    document.documentElement.lang = next
   }
 
   return (

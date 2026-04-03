@@ -50,12 +50,14 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <nav
             aria-label="Global"
-            className="grid grid-cols-2 lg:grid-cols-3 items-center p-3 lg:p-4 bg-teal-950/80 backdrop-blur-md shadow-2xl rounded-xl border border-white/10 overflow-visible"
+            className="grid grid-cols-3 items-center p-3 lg:p-4 bg-teal-950/80 backdrop-blur-md shadow-2xl rounded-xl border border-white/10 overflow-visible"
           >
-            {/* Left Section: Mobile Book Now / Desktop Nav */}
-            <div className="flex items-center">
-              {/* Desktop Left Nav */}
-              <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
+            {/* Left Section: LanguageSwitcher */}
+            <div className="flex justify-start items-center">
+              <LanguageSwitcher />
+              
+              {/* Desktop Left Nav - only visible on LG */}
+              <div className="hidden lg:flex lg:gap-x-8 lg:items-center ml-8">
                 {leftNavigation.map((item) => (
                   <motion.button
                     type="button"
@@ -73,30 +75,11 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                     {item.name}
                   </motion.button>
                 ))}
-
-                {/* LanguageSwitcher remains on Left Section */}
-                <LanguageSwitcher />
-              </div>
-
-              {/* Mobile/Tablet Book Now Button - Left side */}
-              <div className="flex lg:hidden">
-                <motion.button
-                  type="button"
-                  onClick={() => toggleBookForm(true)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-sm font-semibold text-white bg-emerald-600/20 hover:bg-emerald-600/40 px-4 py-2 rounded-lg flex items-center whitespace-nowrap"
-                >
-                  Book Now
-                  <span aria-hidden="true" className="ml-1">
-                    →
-                  </span>
-                </motion.button>
               </div>
             </div>
 
-            {/* Center Section: Logo (Perfectly Centered on Desktop) */}
-            <div className="flex justify-center lg:justify-center">
+            {/* Center Section: Logo */}
+            <div className="flex justify-center">
               <motion.button
                 type="button"
                 onClick={handleLogoClick}
@@ -113,10 +96,10 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
               </motion.button>
             </div>
 
-            {/* Right Section: Hamburger / Desktop Menu */}
-            <div className="flex justify-end items-center gap-4 lg:gap-8">
+            {/* Right Section: Hamburger / Desktop Right Nav */}
+            <div className="flex justify-end items-center">
               {/* Desktop Right items */}
-              <div className="hidden lg:flex lg:gap-x-8">
+              <div className="hidden lg:flex lg:gap-x-8 lg:items-center mr-8">
                 {rightNavigation.map((item) => (
                   <motion.button
                     type="button"
@@ -136,8 +119,8 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                 ))}
               </div>
 
-              <div className="hidden lg:flex items-center gap-6">
-                {/* Sign In (AuthButtons) moved back to Right Section */}
+              {/* Desktop Auth */}
+              <div className="hidden lg:flex items-center">
                 <AuthButtons
                   onOpenLogin={() => openAuthModal('login')}
                   onNavigate={handleNavigation}
@@ -218,9 +201,6 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
 
                         <div className="flex-1 px-6 py-8">
                           <div className="space-y-4">
-                            <div className="pb-6 border-b border-white/5">
-                              <LanguageSwitcher />
-                            </div>
                             <div className="space-y-1">
                               {[...leftNavigation, ...rightNavigation].map((item) => (
                                 <motion.button
@@ -241,6 +221,20 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                                   {item.name}
                                 </motion.button>
                               ))}
+                            </div>
+
+                            {/* Mobile Auth Section */}
+                            <div className="pt-6 mt-6 border-t border-white/10 px-4">
+                              <AuthButtons
+                                onOpenLogin={() => {
+                                  toggleMobileMenu(false)
+                                  openAuthModal('login')
+                                }}
+                                onNavigate={(page) => {
+                                  toggleMobileMenu(false)
+                                  handleNavigation(page)
+                                }}
+                              />
                             </div>
                           </div>
                         </div>

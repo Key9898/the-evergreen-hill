@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
-import Breadcrumbs from '../Layout/Breadcrumbs'
+import { Breadcrumbs } from '../Layout'
 const SwimmingPoolImg = '/SwimmingPool/swimming_pool_banner_img.jpg'
 
 interface SwimmingPoolBannerProps {

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
-import Breadcrumbs from '../Layout/Breadcrumbs'
+import { Breadcrumbs } from '../Layout'
 const FaqsImg = '/FAQs/faqs_img.jpg'
 
 interface FAQsProps {

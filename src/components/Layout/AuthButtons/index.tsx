@@ -5,7 +5,7 @@ import {
   ArrowRightEndOnRectangleIcon,
   ChevronDownIcon,
 } from '@heroicons/react/24/outline'
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from '../../../hooks/useAuth'
 
 interface AuthButtonsProps {
   onOpenLogin: () => void

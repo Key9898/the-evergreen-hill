@@ -4,11 +4,32 @@
   outline: 1px solid red !important;
 } */
 
+/* Myanmar font + layout adjustments */
+:lang(my),
+[lang="my"],
+html.lang-my {
+  font-family: 'Noto Sans Myanmar', 'Myanmar Text', 'Pyidaungsu', sans-serif;
+  line-height: 1.9;
+  word-break: break-word;
+}
+
 @layer base {
+  :root {
+    --color-popover: #ffffff;
+    --color-popover-foreground: #111827;
+    --color-border: #e5e7eb;
+  }
+
+  /* Map popup wrapper — let our React component handle styling */
   .maplibregl-popup-content {
     @apply bg-transparent! shadow-none! p-0! rounded-none!;
   }
-  .maplibregl-popup-tip {
-    @apply hidden!;
+
+  /* Attribution: always compact — text hidden until ⓘ clicked */
+  .maplibregl-ctrl-attrib:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-inner {
+    display: none !important;
+  }
+  .maplibregl-ctrl-attrib {
+    background-color: rgba(255,255,255,0.75) !important;
   }
 }

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import ScrollToTopButton from './ScrollToTopButton'
+import ScrollToTopButton from '.'
 
 const meta: Meta<typeof ScrollToTopButton> = {
   title: 'Layout/ScrollToTopButton',

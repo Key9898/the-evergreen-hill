@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
-import Breadcrumbs from '../Layout/Breadcrumbs'
+import { Breadcrumbs } from '../Layout'
 const TermsImg = '/TermsOfService/terms_of_service_img.jpg'
 
 interface TermsBannerProps {

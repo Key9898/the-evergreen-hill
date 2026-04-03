@@ -30,6 +30,9 @@
 | Context API | ✅ Complete | AuthContext, PaymentContext |
 | SEO Meta Tags | ✅ Complete | Open Graph tags in index.html |
 | Map Library | ✅ Complete | mapcn (MapLibre) replaces google-map-react |
+| MMQR Payment | ✅ Complete | Stripe removed; MMQR mock flow (QR SVG + 1.5s delay + reference ID) |
+| CI/CD | ✅ Complete | GitHub Actions — lint + build + test on every push/PR |
+| Error Tracking | ✅ Complete | Sentry (@sentry/react, browserTracingIntegration, 20% sample rate) |
 
 ---
 
@@ -151,6 +154,15 @@
 - [x] Create stories for: FAQs components (FAQs, FAQsBanner)
 - [x] Create stories for: Legal components (PrivacyPolicy, PrivacyBanner, TermsOfService, TermsBanner)
 
+#### 1.8 Payment Migration (Stripe → MMQR)
+- [x] Removed `src/lib/stripe.ts` and `@stripe/stripe-js` dependency
+- [x] Removed `VITE_STRIPE_PUBLISHABLE_KEY` from `.env.example`
+- [x] Rewrote `src/types/payment.ts` — `PaymentMethod` type: `mmqr | kbz_pay | wave_money | aya_pay | cb_pay`; added `referenceId`
+- [x] Rewrote `src/hooks/usePayment.ts` — 1.5s mock delay, generates `MMQR-XXXXXXXX` reference ID
+- [x] Rewrote `src/components/Payment/PaymentForm.tsx` — MMQR SVG QR code + scan instructions + "I've Paid" button
+- [x] Updated `src/components/Payment/BookingConfirmation.tsx` — shows `referenceId` row
+- [x] Rewrote `src/services/payment.ts` — removed Stripe stubs, added `confirmMmqrPayment` mock
+
 ---
 
 ### Phase 2: Production Deployment
@@ -179,7 +191,7 @@
 
 ### Phase 1 Complete When:
 - [x] Users can switch between English/Myanmar
-- [ ] All existing content translated (my.json needs ~240 more lines)
+- [x] All existing content translated (my.json fully matches en.json — 443 lines)
 - [x] Vitest configured and initial tests passing
 - [x] All Storybook stories created
 - [x] Project structure refactored (hooks, types, context)

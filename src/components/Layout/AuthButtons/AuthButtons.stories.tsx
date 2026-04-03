@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { fn } from '@storybook/test'
-import AuthButtons from './AuthButtons'
-import { AuthProvider } from '../../context/AuthContext'
+import AuthButtons from '.'
+import { AuthProvider } from '../../../context/AuthContext'
 
 const meta: Meta<typeof AuthButtons> = {
   title: 'Layout/AuthButtons',

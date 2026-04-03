@@ -4,7 +4,13 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
 const HeroImage = '/Hero/hero_img.jpg'
-import BookForm from '../Layout/BookForm'
+import { BookForm } from '../Layout'
+import LanguageSwitcher from '../Layout/LanguageSwitcher/LanguageSwitcher'
+import AuthButtons from '../Layout/AuthButtons'
+import LoginModal from '../Auth/LoginModal'
+import RegisterModal from '../Auth/RegisterModal'
+import ForgotPasswordModal from '../Auth/ForgotPasswordModal'
+import { useHeader } from '../../hooks/useHeader'
 
 const leftNavigation = [
   { name: 'Rooms & Suites', href: '#', key: 'roomsAndSuites' },
@@ -26,6 +32,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
   const [bookFormOpen, setBookFormOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { fadeInUp, fadeInDown, staggerContainer } = useAnimation()
+  const { authModal, openAuthModal, closeAuthModal } = useHeader(onNavigate)
 
   const handleNavigation = (key: string) => {
     onNavigate?.(key)
@@ -46,24 +53,30 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           aria-label="Global"
-          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 overflow-visible"
+          className="mx-auto grid grid-cols-3 items-center max-w-7xl p-6 lg:px-8 overflow-visible"
         >
-          <div className="hidden lg:flex lg:gap-x-8">
-            {leftNavigation.map((item) => (
-              <motion.button
-                type="button"
-                key={item.name}
-                onClick={() => handleNavigation(item.key)}
-                className="text-sm font-semibold text-white hover:text-teal-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item.name}
-              </motion.button>
-            ))}
+          {/* Left Section: LanguageSwitcher / Desktop Nav */}
+          <div className="flex items-center justify-start">
+            <LanguageSwitcher />
+            
+            <div className="hidden lg:flex lg:gap-x-8 ml-8">
+              {leftNavigation.map((item) => (
+                <motion.button
+                  type="button"
+                  key={item.name}
+                  onClick={() => handleNavigation(item.key)}
+                  className="text-sm font-semibold text-white hover:text-teal-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item.name}
+                </motion.button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex lg:flex-1 lg:justify-center">
+          {/* Center Section: Logo */}
+          <div className="flex justify-center">
             <motion.button
               type="button"
               onClick={handleLogoClick}
@@ -82,32 +95,42 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
             </motion.button>
           </div>
 
-          <div className="hidden lg:flex lg:gap-x-8">
-            {rightNavigation.map((item) => (
+          {/* Right Section: Hamburger / Desktop Right Nav */}
+          <div className="flex justify-end items-center">
+            <div className="hidden lg:flex lg:gap-x-8 mr-8">
+              {rightNavigation.map((item) => (
+                <motion.button
+                  type="button"
+                  key={item.name}
+                  onClick={() => handleNavigation(item.key)}
+                  className="text-sm font-semibold text-white hover:text-teal-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item.name}
+                </motion.button>
+              ))}
+            </div>
+
+            <div className="hidden lg:flex items-center mr-8">
+              <AuthButtons
+                onOpenLogin={() => openAuthModal('login')}
+                onNavigate={handleNavigation}
+              />
+            </div>
+
+            <div className="flex lg:hidden">
               <motion.button
                 type="button"
-                key={item.name}
-                onClick={() => handleNavigation(item.key)}
-                className="text-sm font-semibold text-white hover:text-teal-600 transition-colors duration-200 bg-transparent border-none cursor-pointer"
+                onClick={() => setMobileMenuOpen(true)}
+                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {item.name}
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon aria-hidden="true" className="size-6" />
               </motion.button>
-            ))}
-          </div>
-
-          <div className="flex lg:hidden">
-            <motion.button
-              type="button"
-              onClick={() => setMobileMenuOpen(true)}
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="size-6" />
-            </motion.button>
+            </div>
           </div>
         </nav>
 
@@ -156,6 +179,19 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                       {item.name}
                     </motion.button>
                   ))}
+                </div>
+
+                <div className="py-6">
+                  <AuthButtons
+                    onOpenLogin={() => {
+                      setMobileMenuOpen(false)
+                      openAuthModal('login')
+                    }}
+                    onNavigate={(page) => {
+                      setMobileMenuOpen(false)
+                      handleNavigation(page)
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -257,6 +293,24 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
       </div>
 
       {bookFormOpen && <BookForm isOpen={bookFormOpen} onClose={() => setBookFormOpen(false)} />}
+      <LoginModal
+        isOpen={authModal === 'login'}
+        onClose={closeAuthModal}
+        onNavigateRegister={() => openAuthModal('register')}
+        onNavigateForgotPassword={() => openAuthModal('forgot')}
+        onSuccess={closeAuthModal}
+      />
+      <RegisterModal
+        isOpen={authModal === 'register'}
+        onClose={closeAuthModal}
+        onNavigateLogin={() => openAuthModal('login')}
+        onSuccess={closeAuthModal}
+      />
+      <ForgotPasswordModal
+        isOpen={authModal === 'forgot'}
+        onClose={closeAuthModal}
+        onNavigateLogin={() => openAuthModal('login')}
+      />
     </motion.div>
   )
 }

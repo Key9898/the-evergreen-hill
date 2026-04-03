@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { fn } from '@storybook/test'
-import BookForm from './BookForm'
+import BookForm from '.'
 
 const meta: Meta<typeof BookForm> = {
   title: 'Layout/BookForm',
