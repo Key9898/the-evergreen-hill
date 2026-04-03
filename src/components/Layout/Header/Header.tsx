@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -11,15 +10,15 @@ import RegisterModal from '../../Auth/RegisterModal'
 import ForgotPasswordModal from '../../Auth/ForgotPasswordModal'
 
 const leftNavigation = [
-  { tKey: 'nav.rooms', page: 'roomsAndSuites' },
-  { tKey: 'nav.experiences', page: 'experiences' },
-  { tKey: 'nav.gallery', page: 'gallery' },
+  { name: 'Rooms & Suites', page: 'roomsAndSuites' },
+  { name: 'Experiences', page: 'experiences' },
+  { name: 'Gallery', page: 'gallery' },
 ]
 
 const rightNavigation = [
-  { tKey: 'nav.ourStory', page: 'ourStory' },
-  { tKey: 'nav.location', page: 'location' },
-  { tKey: 'nav.contact', page: 'contact' },
+  { name: 'Our Story', page: 'ourStory' },
+  { name: 'Location', page: 'location' },
+  { name: 'Contact', page: 'contact' },
 ]
 
 interface HeaderProps {
@@ -28,7 +27,6 @@ interface HeaderProps {
 }
 
 export default function Header({ onNavigate, activePage }: HeaderProps) {
-  const { t } = useTranslation()
   const {
     mobileMenuOpen,
     bookFormOpen,
@@ -74,7 +72,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                         : 'text-white hover:text-emerald-300'
                     }`}
                   >
-                    {t(item.tKey)}
+                    {item.name}
                   </motion.button>
                 ))}
               </div>
@@ -116,7 +114,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                         : 'text-white hover:text-emerald-300'
                     }`}
                   >
-                    {t(item.tKey)}
+                    {item.name}
                   </motion.button>
                 ))}
               </div>
@@ -220,7 +218,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                                       : 'text-teal-50 hover:text-white'
                                   }`}
                                 >
-                                  {t(item.tKey)}
+                                  {item.name}
                                 </motion.button>
                               ))}
                             </div>

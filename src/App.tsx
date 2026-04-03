@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import './App.css'
 import Hero from './components/Hero/HeroSection'
@@ -25,9 +25,25 @@ import { PaymentProvider } from './context/PaymentContext'
 import { pageTransition } from './lib/animations'
 import { FloatingBookButton, BookForm } from './components/Layout'
 
+const VALID_PAGES = new Set([
+  'home', 'roomsAndSuites', 'experiences', 'DiningAndBar', 'swimmingPool',
+  'spaAndWellnessCenter', 'activities', 'gallery', 'ourStory', 'team',
+  'guestReviews', 'location', 'contact', 'events', 'faqs',
+  'termsOfService', 'privacyPolicy', 'profile', 'bookingHistory',
+])
+
+function getInitialPage(): string {
+  const hash = window.location.hash.slice(1)
+  return VALID_PAGES.has(hash) ? hash : 'home'
+}
+
 function App() {
-  const [currentPage, setCurrentPage] = useState('home')
+  const [currentPage, setCurrentPage] = useState(getInitialPage)
   const [isBookFormOpen, setIsBookFormOpen] = useState(false)
+
+  useEffect(() => {
+    window.location.hash = currentPage === 'home' ? '' : currentPage
+  }, [currentPage])
 
   const renderPage = () => {
     switch (currentPage) {
