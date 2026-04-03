@@ -1,24 +1,15 @@
 export type PaymentStatus = 'idle' | 'processing' | 'succeeded' | 'failed' | 'cancelled'
 
-export type PaymentMethod = 'card' | 'kbz_pay' | 'wave_money'
-
-export interface PaymentIntent {
-  id: string
-  clientSecret: string
-  amount: number
-  currency: string
-  status: PaymentStatus
-}
+export type PaymentMethod = 'mmqr' | 'kbz_pay' | 'wave_money' | 'aya_pay' | 'cb_pay'
 
 export interface PaymentFormState {
-  cardholderName: string
   isProcessing: boolean
   error: string | null
 }
 
 export interface PaymentResult {
   success: boolean
-  paymentIntentId?: string
+  referenceId?: string
   error?: string
 }
 
@@ -48,5 +39,5 @@ export interface BookingConfirmationData {
   guestEmail: string
   totalPaid: number
   currency: string
-  paymentIntentId: string
+  referenceId: string
 }

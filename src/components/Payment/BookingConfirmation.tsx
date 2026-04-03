@@ -88,6 +88,11 @@ export default function BookingConfirmation({
         </div>
 
         <div className="flex justify-between items-center pt-4 border-t border-slate-100">
+          <span className="text-slate-500">Reference</span>
+          <span className="font-mono text-sm text-teal-700">{confirmation.referenceId}</span>
+        </div>
+
+        <div className="flex justify-between items-center">
           <span className="text-slate-500">Total Paid</span>
           <span className="font-semibold text-slate-800 text-lg">
             {confirmation.currency} {confirmation.totalPaid.toFixed(2)}
