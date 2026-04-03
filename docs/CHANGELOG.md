@@ -7,6 +7,25 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- 2026-04-04: **Wave-Notch Header Design Concept**:
+  - Implemented 3-column grid layout (`grid-cols-3`) for `Header.tsx` and `HeroSection.tsx`.
+  - Centered `Logo` for brand prominence; left-aligned `LanguageSwitcher`.
+  - Right-aligned `Hamburger icon` (mobile/tablet) or `AuthButtons` (desktop).
+  - Designed "Wave-Notch" background (mockup) to host centered logo with a curve.
+  - Removed redundant "Book Now" button from header row.
+- 2026-04-04: **Floating Button Responsive Positioning**:
+  - Components: `FloatingBookButton`, `ScrollToTopButton`.
+  - Adjusted mobile/tablet side-padding to **`6` (24px)** for better ergonomics.
+  - Set mobile/tablet bottom spacing to **`6` (24px)**.
+  - Desktop remains **`8` (32px)** for a professional look.
+
+### Changed
+- 2026-04-04: **Map Attribution Improvements**:
+  - Component: `src/components/ui/map.tsx`.
+  - Switched to built-in `attributionControl: { compact: true }` in MapOptions.
+  - Injected CSS to hide attribution text until the user manually clicks the 'i' icon.
+  - Removed manual DOM manipulation logic on lines 232-236.
+
 - 2026-04-03: **Map UX — CARTO Voyager + Custom Pin**:
   - `LocationMap.tsx` + `HotelMap.tsx` — CARTO Voyager tiles (Google Maps-like style, free, no API key)
   - Custom SVG teardrop pin: 36×46px, teal `#00786f` fill, white circle, "H" center text

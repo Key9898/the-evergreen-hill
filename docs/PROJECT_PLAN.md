@@ -33,11 +33,14 @@
 | MMQR Payment | ✅ Complete | Stripe removed; MMQR mock flow (QR SVG + 1.5s delay + reference ID) |
 | CI/CD | ✅ Complete | GitHub Actions — lint + build + test on every push/PR |
 | Error Tracking | ✅ Complete | Sentry (@sentry/react, browserTracingIntegration, 20% sample rate) |
-| Map UX | ✅ Complete | CARTO Voyager tiles, custom SVG pin, click-only popup, Get Directions, attribution compact-only |
-| Layout Folder | ✅ Complete | All flat files moved into subfolders; barrel exports; 33 consumer imports fixed |
-| Myanmar i18n | ✅ Complete | Deep scan + fix: mistranslations, font (Noto Sans Myanmar), LanguageSwitcher lang sync |
-| Hero i18n | ✅ Complete | HeroSection wired to useTranslation; nav items stay English always |
+| Map UX | ✅ Complete | CARTO Voyager tiles, custom SVG pin, click-only popup, Get Directions |
+| Header Refactoring | ✅ Complete | 3-column grid, centered logo, Wave-Notch concept, removed redundant buttons |
+| Floating UI | ✅ Complete | Responsive button positioning (6 mobile/tablet, 8 desktop); bottom-6 spacing |
+| Map UX Upgrade | ✅ Complete | Built-in compact attribution + CSS force-collapse for clutter-free UI |
 | Page Persistence | ✅ Complete | URL hash (#pageKey) persists currentPage across reloads |
+| Layout Restructure | ✅ Complete | 6 subfolders, barrel exports; 33 consumer imports fixed |
+| Myanmar i18n | ✅ Complete | Deep scan + fix mistranslations; Noto Sans font; Lang sync |
+| Hero i18n | ✅ Complete | Hero content translated; navigation labels stay English |
 
 ---
 
@@ -155,6 +158,21 @@
 - [x] `en.json` — `hero.*` keys updated to match actual UI: `welcome`, `title1`, `title2`, `description`, `bookYourStay`, `viewGallery`
 - [x] `my.json` — `hero.*` keys: correct Myanmar translations including "The Evergreen Hill, ကလောမှ ကြိုဆိုပါ၏", "ထာဝရ ကျက်သရေ", "Evergreen တည်ငြိမ်ချမ်းသာမှု"; fixed "ကိုလိုနီခေတ် အဆောက်အဦးသည်", "ပြေလျှော့ကာ"
 - [x] `App.tsx` — URL hash page persistence: `getInitialPage()` reads `window.location.hash` on mount; `useEffect` syncs hash on `currentPage` change; `VALID_PAGES` Set guards invalid hashes; home = clean URL
+
+#### 1.13 Premium Header & Floating Elements
+- [x] Redesigned shared `Header.tsx` and `HeroSection.tsx` to use a 3-column grid (`grid-cols-3`)
+- [x] Perfectly centered `Logo` for brand prominence; left-aligned `LanguageSwitcher`
+- [x] Right-aligned `Hamburger icon` (mobile/tablet) or `AuthButtons` (Desktop)
+- [x] Introduced **Wave-Notch** header concept with `overflow-visible` logo positioning
+- [x] Optimized floating buttons: mobile/tablet side-padding reduced to **`6` (24px)** for improved ergonomics
+- [x] Fixed consistent **`bottom-6`** spacing for all mobile floating elements
+- [x] Cleaned up UI by removing redundant "Book Now" buttons from main header rows
+
+#### 1.14 Map Attribution UX Finalization
+- [x] Migrated to built-in `attributionControl: { compact: true }` in `map.tsx` for optimal reliability
+- [x] Injected custom CSS to force-collapse attribution until the user clicks the "i" info icon
+- [x] Removed obsolete manual DOM manipulation logic from Map initialization setup
+
 
 #### 1.3 Animation Setup (Framer Motion)
 - [x] Install framer-motion package

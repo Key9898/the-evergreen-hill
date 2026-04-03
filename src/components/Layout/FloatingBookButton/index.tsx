@@ -35,7 +35,7 @@ export default function FloatingBookButton({ onClick }: FloatingBookButtonProps)
           }}
           whileTap={{ scale: 0.95 }}
           onClick={onClick}
-          className="fixed bottom-8 left-8 z-40 group flex items-center bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-md shadow-2xl border border-white/20 focus:outline-none
+          className="fixed bottom-6 lg:bottom-8 left-6 lg:left-8 z-40 group flex items-center bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-md shadow-2xl border border-white/20 focus:outline-none
             p-3
             md:gap-2 md:px-5 md:py-3
             lg:gap-3 lg:px-6 lg:py-4"

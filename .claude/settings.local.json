@@ -20,7 +20,11 @@
       "Bash(npx shadcn@latest add @mapcn/map)",
       "Bash(npx shadcn@latest add @mapcn/map --overwrite)",
       "Bash(npm list:*)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(node -e \":*)",
+      "Bash(grep -r \"Myanmar\\\\|Pyidaungsu\\\\|Noto Sans Myanmar\" C:UserskeychDevelopmentProjectsPersonalthe-evergreen-hill --include=*.ts --include=*.tsx --include=*.css --include=*.html --include=*.json)",
+      "Bash(grep -l useTranslation C:UserskeychDevelopmentProjectsPersonalthe-evergreen-hillsrccomponents/**/*.tsx)",
+      "Bash(grep -r AttributionControl C:UserskeychDevelopmentProjectsPersonalthe-evergreen-hillnode_modulesmaplibre-gldist --include=*.js -l)"
     ]
   }
 }

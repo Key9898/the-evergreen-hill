@@ -221,19 +221,10 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       container: containerRef.current,
       style: initialStyle,
       renderWorldCopies: false,
-      attributionControl: false,
+      attributionControl: { compact: true },
       ...props,
       ...viewport,
     })
-
-    map.addControl(new MapLibreGL.AttributionControl({ compact: true }))
-    // _updateCompact() adds maplibregl-compact-show on init; _updateCompactMinimize only fires
-    // on 'drag', so the text stays visible until the user drags. Force-collapse immediately.
-    const attribEl = map.getContainer().querySelector('.maplibregl-ctrl-attrib')
-    if (attribEl) {
-      attribEl.classList.remove('maplibregl-compact-show')
-      attribEl.removeAttribute('open')
-    }
 
     const styleDataHandler = () => {
       clearStyleTimeout()
@@ -328,6 +319,15 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     <MapContext.Provider value={contextValue}>
       <div ref={containerRef} className={cn('relative h-full w-full', className)}>
         {(!isLoaded || loading) && <DefaultLoader />}
+        <style>{`
+          .maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-inner {
+            display: none;
+          }
+          .maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) {
+            padding: 2px 24px 2px 0px;
+            background-color: rgba(255, 255, 255, 0.5);
+          }
+        `}</style>
         {/* SSR-safe: children render only when map is loaded on client */}
         {mapInstance && children}
       </div>
