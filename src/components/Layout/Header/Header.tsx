@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -10,15 +11,15 @@ import RegisterModal from '../../Auth/RegisterModal'
 import ForgotPasswordModal from '../../Auth/ForgotPasswordModal'
 
 const leftNavigation = [
-  { name: 'Rooms & Suites', page: 'roomsAndSuites' },
-  { name: 'Experiences', page: 'experiences' },
-  { name: 'Gallery', page: 'gallery' },
+  { tKey: 'nav.rooms', page: 'roomsAndSuites' },
+  { tKey: 'nav.experiences', page: 'experiences' },
+  { tKey: 'nav.gallery', page: 'gallery' },
 ]
 
 const rightNavigation = [
-  { name: 'Our Story', page: 'ourStory' },
-  { name: 'Location', page: 'location' },
-  { name: 'Contact', page: 'contact' },
+  { tKey: 'nav.ourStory', page: 'ourStory' },
+  { tKey: 'nav.location', page: 'location' },
+  { tKey: 'nav.contact', page: 'contact' },
 ]
 
 interface HeaderProps {
@@ -27,6 +28,7 @@ interface HeaderProps {
 }
 
 export default function Header({ onNavigate, activePage }: HeaderProps) {
+  const { t } = useTranslation()
   const {
     mobileMenuOpen,
     bookFormOpen,
@@ -47,10 +49,10 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className="sticky top-0 z-50 pt-5"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-visible">
           <nav
             aria-label="Global"
-            className="grid grid-cols-3 items-center p-3 lg:p-4 bg-teal-950/80 backdrop-blur-md shadow-2xl rounded-xl border border-white/10 overflow-visible"
+            className="grid grid-cols-3 items-center p-2 lg:p-4 bg-teal-950/80 backdrop-blur-md shadow-2xl rounded-xl border border-white/10 overflow-visible"
           >
             {/* Left Section: LanguageSwitcher */}
             <div className="flex justify-start items-center">
@@ -61,7 +63,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                 {leftNavigation.map((item) => (
                   <motion.button
                     type="button"
-                    key={item.name}
+                    key={item.page}
                     onClick={() => handleNavigation(item.page)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -72,7 +74,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                         : 'text-white hover:text-emerald-300'
                     }`}
                   >
-                    {item.name}
+                    {t(item.tKey)}
                   </motion.button>
                 ))}
               </div>
@@ -91,7 +93,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                 <img
                   alt="The Evergreen Hill Logo"
                   src="/Logo/logo.svg"
-                  className="object-contain h-10 w-auto sm:h-14 lg:h-16"
+                  className="object-contain h-20 w-auto sm:h-24 lg:h-16"
                 />
               </motion.button>
             </div>
@@ -103,7 +105,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                 {rightNavigation.map((item) => (
                   <motion.button
                     type="button"
-                    key={item.name}
+                    key={item.page}
                     onClick={() => handleNavigation(item.page)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -114,7 +116,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                         : 'text-white hover:text-emerald-300'
                     }`}
                   >
-                    {item.name}
+                    {t(item.tKey)}
                   </motion.button>
                 ))}
               </div>
@@ -183,7 +185,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                               <img
                                 alt="The Evergreen Hill Logo"
                                 src="/Logo/logo.svg"
-                                className="h-14 w-auto"
+                                className="h-20 w-auto"
                               />
                             </motion.button>
                             <motion.button
@@ -205,7 +207,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                               {[...leftNavigation, ...rightNavigation].map((item) => (
                                 <motion.button
                                   type="button"
-                                  key={item.name}
+                                  key={item.page}
                                   whileHover={{ x: 10, backgroundColor: 'rgba(255,255,255,0.05)' }}
                                   onClick={() => {
                                     toggleMobileMenu(false)
@@ -218,7 +220,7 @@ export default function Header({ onNavigate, activePage }: HeaderProps) {
                                       : 'text-teal-50 hover:text-white'
                                   }`}
                                 >
-                                  {item.name}
+                                  {t(item.tKey)}
                                 </motion.button>
                               ))}
                             </div>

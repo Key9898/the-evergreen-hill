@@ -227,6 +227,13 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     })
 
     map.addControl(new MapLibreGL.AttributionControl({ compact: true }))
+    // _updateCompact() adds maplibregl-compact-show on init; _updateCompactMinimize only fires
+    // on 'drag', so the text stays visible until the user drags. Force-collapse immediately.
+    const attribEl = map.getContainer().querySelector('.maplibregl-ctrl-attrib')
+    if (attribEl) {
+      attribEl.classList.remove('maplibregl-compact-show')
+      attribEl.removeAttribute('open')
+    }
 
     const styleDataHandler = () => {
       clearStyleTimeout()
