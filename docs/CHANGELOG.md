@@ -7,6 +7,52 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- 2026-04-03: **Map UX — CARTO Voyager + Custom Pin**:
+  - `LocationMap.tsx` + `HotelMap.tsx` — CARTO Voyager tiles (Google Maps-like style, free, no API key)
+  - Custom SVG teardrop pin: 36×46px, teal `#00786f` fill, white circle, "H" center text
+  - `MarkerPopup` — click-only (no auto-open); `offset={52}` positions popup above pin body; white bg + border
+  - "Get Directions" — floating overlay button (bottom-left) + popup link → `google.com/maps/dir/?api=1&destination=lat,lng`
+  - `Location.tsx` — "You can get directions on Google Maps" wired as `<a href={DIRECTIONS_URL}>`
+- 2026-04-03: **Layout Folder Restructure**:
+  - Created 6 subfolders: `AuthButtons/`, `BookForm/`, `Breadcrumbs/`, `FloatingBookButton/`, `Footer/`, `ScrollToTopButton/`
+  - Each has `index.tsx` + `.stories.tsx`; deleted old flat files
+  - `Layout/index.ts` barrel updated; `AuthButtons` export added
+  - 33 consumer files bulk-updated to use `import { X } from '../Layout'` barrel imports
+  - `FloatingBookButton`: mobile icon-only (no ping, no text), tablet compact, desktop full; all `rounded-md`
+  - `ScrollToTopButton`: consistent `bottom-8 right-8 w-12 h-12 rounded-md` all screen sizes
+- 2026-04-03: **Noto Sans Myanmar Font**:
+  - `index.html` — Google Fonts link for Noto Sans Myanmar (`wght@400;500;600;700`)
+  - `src/index.css` — `:lang(my)` selector with `font-family`, `line-height: 1.9`, `word-break: break-word`
+  - `LanguageSwitcher.tsx` — `document.documentElement.lang` synced on mount + on every toggle
+- 2026-04-03: **HeroSection i18n**:
+  - `HeroSection.tsx` — `useTranslation` added; hero badge, h1 titles, description, CTA buttons use `t()` keys
+  - Nav items (`Rooms & Suites`, `Experiences`, etc.) stay hardcoded English — never translate
+  - `en.json` `hero.*` keys rewritten: `welcome`, `title1`, `title2`, `description`, `bookYourStay`, `viewGallery`
+- 2026-04-03: **Page Persistence on Reload (URL Hash)**:
+  - `App.tsx` — `getInitialPage()` reads `window.location.hash` on mount
+  - `useEffect` syncs hash whenever `currentPage` changes
+  - `VALID_PAGES` Set guards against invalid/injected hash values
+  - Home page = clean URL (`hash = ''`); inner pages = `/#pageKey`
+
+### Fixed
+- 2026-04-03: **Map Attribution Always Showing (root cause found)**:
+  - Root cause: MapLibre's `_updateCompact()` fires on `addControl` and adds `maplibregl-compact-show`; `_updateCompactMinimize` only fires on `drag` — so text stayed visible until user dragged
+  - Fix 1 (partial): `attributionControl: false` + `map.addControl(new AttributionControl({ compact: true }))` — prevents resize handler expanding it, but init still shows text
+  - Fix 2 (final): After `addControl`, immediately `querySelector('.maplibregl-ctrl-attrib')` and remove `maplibregl-compact-show` + `open` attribute — MapLibre's own CSS hides the text (`compact` class present, `compact-show` absent)
+- 2026-04-03: **Myanmar Mistranslations (Deep Scan)**:
+  - `pool.features.views.title`: "မျက်ကန်းနျ မြင်ကွင်းများ" (blindness) → "ကျယ်ပြန့်သောမြင်ကွင်းများ"
+  - `rooms.roomTypes.honeymoonSuite`: "လမ်းသွယ် ဆူတ်" (byway suite) → "Honeymoon Suite"
+  - `dining.barLounge`: "ဘားနှင့် လောင်းချိုးခန်း" (locker room) → "ဘားနှင့် Lounge"
+  - `ourStory.hospitalityP1`: removed Japanese character "身振りများ"
+  - `rooms.features.luxuryAmenities`: "贅沢なアメニティ" (Japanese) → "အဆင့်မြင့်အထောက်အပံ့များ"
+  - Mixed EN/MY strings cleaned; hotel brand name standardized to "The Evergreen Hill"
+- 2026-04-03: **hero.welcome text**: "The Evergreen Hill, ကလောသို့ ကြိုဆိုပါသည်" → "The Evergreen Hill, ကလောမှ ကြိုဆိုပါ၏"
+- 2026-04-03: **hero.title2 meaningless phrase**: "Evergreen ငြိမ်ချမ်းဆုတ်ကပ်" → "Evergreen တည်ငြိမ်ချမ်းသာမှု"
+- 2026-04-03: **hero.description phrases**: "ကိုလိုနီလက္ခဏာဆောင် ဧည့်ခန်းသည်" → "ကိုလိုနီခေတ် အဆောက်အဦးသည်"; "ပြေလျော့ကာ" → "ပြေလျှော့ကာ"
+- 2026-04-03: **Inner-pages Header nav translation** (reverted): Header.tsx nav items temporarily wired to `useTranslation` causing Myanmar translation — reverted to hardcoded English names only
+- 2026-04-03: **HeroSection nav translation** (fixed): leftNavigation/rightNavigation arrays had `tKey` entries causing nav to translate — switched back to hardcoded `name` strings
+
+### Added
 - 2026-04-03: **Custom Favicon**: Created a new pine tree favicon using brand color `#00786f`.
 - 2026-04-03: **Asset Reorganization**:
   - Created `public/Favicon/` for the new favicon.
@@ -121,6 +167,18 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## Project History
+
+### 2026-04-03 - UI Polish + i18n Deep Fix Session
+- Map redesign: CARTO Voyager tiles, custom teal SVG pin, click-only popup with Get Directions
+- Map attribution bug fixed (root cause: MapLibre `_updateCompact()` + `_updateCompactMinimize` timing)
+- Layout folder restructure: 6 subfolders, barrel exports, 33 consumer imports fixed
+- FloatingBookButton + ScrollToTopButton: responsive redesign, `rounded-md` consistent
+- Noto Sans Myanmar font: loaded via Google Fonts, `:lang(my)` CSS, LanguageSwitcher `document.documentElement.lang` sync
+- Myanmar i18n deep scan: fixed critical mistranslations (blindness, locker room, Japanese chars, byway suite)
+- HeroSection: wired to `useTranslation` for hero content; nav items stay English always
+- Hero Myanmar translations: welcome text corrected, title2 natural phrase, description phrases fixed
+- Page persistence: URL hash (#pageKey) — reload restores user's current page
+- Commits: 922786d → ebc768c → effa688 → 12a5de0 → b2e059c → 77c319b → 84c3a7c → 28ec339
 
 ### 2026-04-03 - Phase 2 Completion Session
 - Firebase production white screen fixed (env guard + Vercel Production env vars)

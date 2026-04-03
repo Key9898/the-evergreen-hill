@@ -33,6 +33,11 @@
 | MMQR Payment | ✅ Complete | Stripe removed; MMQR mock flow (QR SVG + 1.5s delay + reference ID) |
 | CI/CD | ✅ Complete | GitHub Actions — lint + build + test on every push/PR |
 | Error Tracking | ✅ Complete | Sentry (@sentry/react, browserTracingIntegration, 20% sample rate) |
+| Map UX | ✅ Complete | CARTO Voyager tiles, custom SVG pin, click-only popup, Get Directions, attribution compact-only |
+| Layout Folder | ✅ Complete | All flat files moved into subfolders; barrel exports; 33 consumer imports fixed |
+| Myanmar i18n | ✅ Complete | Deep scan + fix: mistranslations, font (Noto Sans Myanmar), LanguageSwitcher lang sync |
+| Hero i18n | ✅ Complete | HeroSection wired to useTranslation; nav items stay English always |
+| Page Persistence | ✅ Complete | URL hash (#pageKey) persists currentPage across reloads |
 
 ---
 
@@ -114,6 +119,42 @@
 - [x] `src/components/Contact/HotelMap.tsx` — Replaced GoogleMapReact with mapcn
 - [x] Uninstalled `google-map-react`; added `clsx`, `tailwind-merge`, `maplibre-gl`, `lucide-react`
 - [x] `vite.config.ts` + `tsconfig.app.json` — Added `@/` path alias
+
+#### 1.9 Map UX Enhancement
+- [x] CARTO Voyager tiles for Google Maps-like appearance (free, no API key)
+- [x] Custom SVG teardrop pin: 36×46px, teal `#00786f`, white circle + "H" text
+- [x] Popup: click-only (no auto-open), `offset={52}` positions above pin body, white bg
+- [x] "Get Directions" — overlay button + popup link → Google Maps `dir/?api=1&destination=...`
+- [x] Map attribution compact-only fix: `attributionControl: false` → `addControl(new AttributionControl({compact:true}))` → immediately remove `maplibregl-compact-show` + `open` attribute (root cause: `_updateCompact()` adds compact-show on init; `_updateCompactMinimize` only fires on drag)
+- [x] `src/index.css` — `.maplibregl-popup-content` stripped of default bg; CSS variables (`--color-popover`, `--color-popover-foreground`, `--color-border`) added to `:root`
+
+#### 1.10 Layout Folder Restructure
+- [x] Moved 6 flat files into proper subfolders: `AuthButtons/`, `BookForm/`, `Breadcrumbs/`, `FloatingBookButton/`, `Footer/`, `ScrollToTopButton/`
+- [x] Each subfolder has `index.tsx` + `.stories.tsx`
+- [x] Fixed hook/component import paths inside each moved file (e.g. `../../hooks/useAuth` → `../../../hooks/useAuth`)
+- [x] `Layout/index.ts` — barrel exports updated; added `AuthButtons` export
+- [x] 33 consumer files updated from `import Footer from '../Layout/Footer'` → `import { Footer } from '../Layout'` (bulk Node.js script)
+- [x] `FloatingBookButton`: mobile icon-only (no ping, no text), tablet compact, desktop full; `rounded-md`
+- [x] `ScrollToTopButton`: consistent `bottom-8 right-8 w-12 h-12 rounded-md` all screen sizes
+
+#### 1.11 Myanmar i18n Deep Fix
+- [x] `index.html` — Added Noto Sans Myanmar font (Google Fonts, `wght@400;500;600;700`)
+- [x] `src/index.css` — `:lang(my)` CSS selector: `font-family: 'Noto Sans Myanmar'`, `line-height: 1.9`, `word-break: break-word`
+- [x] `LanguageSwitcher.tsx` — Added `document.documentElement.lang` sync on mount + toggle (required for `:lang(my)` CSS to activate)
+- [x] `my.json` — Complete rewrite fixing critical mistranslations:
+  - `pool.features.views.title`: "မျက်ကန်းနျ မြင်ကွင်းများ" (blindness!) → "ကျယ်ပြန့်သောမြင်ကွင်းများ"
+  - `rooms.roomTypes.honeymoonSuite`: "လမ်းသွယ် ဆူတ်" (byway!) → "Honeymoon Suite"
+  - `dining.barLounge`: "ဘားနှင့် လောင်းချိုးခန်း" (locker room!) → "ဘားနှင့် Lounge"
+  - `ourStory.hospitalityP1`: removed Japanese character "身振りများ"
+  - `rooms.features.luxuryAmenities`: "贅沢なアメニティ" (Japanese!) → "အဆင့်မြင့်အထောက်အပံ့များ"
+  - Mixed EN/MY strings standardized; hotel brand "The Evergreen Hill" kept in English
+
+#### 1.12 HeroSection i18n + Page Persistence
+- [x] `HeroSection.tsx` — Added `useTranslation`; hero badge, h1 titles, description, CTA buttons use `t()` keys
+- [x] `HeroSection.tsx` — Nav items (`Rooms & Suites`, `Experiences`, `Gallery`, `Our Story`, `Location`, `Contact`) stay hardcoded English — never translate
+- [x] `en.json` — `hero.*` keys updated to match actual UI: `welcome`, `title1`, `title2`, `description`, `bookYourStay`, `viewGallery`
+- [x] `my.json` — `hero.*` keys: correct Myanmar translations including "The Evergreen Hill, ကလောမှ ကြိုဆိုပါ၏", "ထာဝရ ကျက်သရေ", "Evergreen တည်ငြိမ်ချမ်းသာမှု"; fixed "ကိုလိုနီခေတ် အဆောက်အဦးသည်", "ပြေလျှော့ကာ"
+- [x] `App.tsx` — URL hash page persistence: `getInitialPage()` reads `window.location.hash` on mount; `useEffect` syncs hash on `currentPage` change; `VALID_PAGES` Set guards invalid hashes; home = clean URL
 
 #### 1.3 Animation Setup (Framer Motion)
 - [x] Install framer-motion package
