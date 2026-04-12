@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import Header from './Header'
 
 const meta: Meta<typeof Header> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof Header> = {
   component: Header,
   tags: ['autodocs'],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

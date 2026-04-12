@@ -60,7 +60,7 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
           {/* Left Section: LanguageSwitcher / Desktop Nav */}
           <div className="flex items-center justify-start">
             <LanguageSwitcher />
-            
+
             <div className="hidden lg:flex lg:gap-x-8 ml-8">
               {leftNavigation.map((item) => (
                 <motion.button
@@ -243,7 +243,8 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                 >
                   {t('hero.title1')}
                   <br className="hidden sm:inline" />
-                  <span className="sm:hidden"> </span>{t('hero.title2')}
+                  <span className="sm:hidden"> </span>
+                  {t('hero.title2')}
                 </motion.h1>
 
                 <motion.p

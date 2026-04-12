@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import TermsOfService from './TermsOfService'
 
 const meta: Meta<typeof TermsOfService> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof TermsOfService> = {
   component: TermsOfService,
   tags: ['autodocs'],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import LocationBanner from './LocationBanner'
 
 const meta: Meta<typeof LocationBanner> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof LocationBanner> = {
   component: LocationBanner,
   tags: ['autodocs'],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

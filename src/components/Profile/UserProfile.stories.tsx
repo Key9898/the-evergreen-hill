@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import UserProfile from './UserProfile'
 import { AuthProvider } from '../../context/AuthContext'
 
@@ -15,7 +15,7 @@ const meta: Meta<typeof UserProfile> = {
     ),
   ],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

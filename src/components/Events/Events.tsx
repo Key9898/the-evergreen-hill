@@ -46,7 +46,7 @@ export default function Events({ onNavigate }: EventsProps) {
 
   return (
     <div className="min-h-screen">
-      <Header onNavigate={onNavigate} activePage="gallery" />
+      <Header onNavigate={onNavigate} activePage="events" />
       <div className="relative -mt-24 sm:-mt-28">
         <EventsBanner onNavigate={onNavigate} />
       </div>

@@ -264,6 +264,17 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Fix attribution control: show only ⓘ icon by default, text on click
+  useEffect(() => {
+    if (!mapInstance || !isLoaded) return
+
+    const attribControl = mapInstance.getContainer().querySelector('.maplibregl-ctrl-attrib')
+    if (attribControl) {
+      attribControl.removeAttribute('open')
+      attribControl.classList.remove('maplibregl-compact-show')
+    }
+  }, [mapInstance, isLoaded])
+
   // Sync controlled viewport to map
   useEffect(() => {
     if (!mapInstance || !isControlled || !viewport) return
@@ -320,12 +331,70 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       <div ref={containerRef} className={cn('relative h-full w-full', className)}>
         {(!isLoaded || loading) && <DefaultLoader />}
         <style>{`
-          .maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-inner {
+          .maplibregl-ctrl-attrib {
+            background-color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            line-height: 1.5;
+            position: relative;
+            padding: 0;
+            border-radius: 3px;
+            overflow: hidden;
+          }
+          .maplibregl-ctrl-attrib.maplibregl-compact {
+            padding: 0;
+            background-color: rgba(255, 255, 255, 0.5);
+          }
+          .maplibregl-ctrl-attrib-button {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 3px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+          .maplibregl-ctrl-attrib-button::-webkit-details-marker {
             display: none;
           }
-          .maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) {
-            padding: 2px 24px 2px 0px;
-            background-color: rgba(255, 255, 255, 0.5);
+          .maplibregl-ctrl-attrib-button::marker {
+            content: none;
+          }
+          .maplibregl-ctrl-attrib-button::before {
+            content: "ⓘ";
+            font-size: 14px;
+            color: #333;
+          }
+          .maplibregl-ctrl-attrib-button:hover {
+            background: rgba(255, 255, 255, 1);
+          }
+          .maplibregl-ctrl-attrib-inner {
+            padding: 4px 8px;
+            display: none;
+          }
+          .maplibregl-ctrl-attrib-inner a {
+            color: #0078a8;
+            text-decoration: none;
+          }
+          .maplibregl-ctrl-attrib-inner a:hover {
+            text-decoration: underline;
+          }
+          .maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-inner,
+          .maplibregl-ctrl-attrib[open] .maplibregl-ctrl-attrib-inner {
+            display: block;
+          }
+          .maplibregl-ctrl-attrib.maplibregl-compact-show,
+          .maplibregl-ctrl-attrib[open] {
+            background-color: rgba(255, 255, 255, 0.9);
+          }
+          .maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-button,
+          .maplibregl-ctrl-attrib[open] .maplibregl-ctrl-attrib-button {
+            position: absolute;
+            right: 0;
+            top: 0;
           }
         `}</style>
         {/* SSR-safe: children render only when map is loaded on client */}

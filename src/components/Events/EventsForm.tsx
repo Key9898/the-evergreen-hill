@@ -180,7 +180,7 @@ export default function EventsForm({ open = true, onClose, onSubmit }: EventsFor
                   required
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  max={new Date().toISOString().split('T')[0]}
+                  min={new Date().toISOString().split('T')[0]}
                   className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 focus:border-teal-600 focus:outline-none"
                 />
               </div>

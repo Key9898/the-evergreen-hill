@@ -4,6 +4,9 @@ import { Header } from '../Layout'
 import { Footer } from '../Layout'
 import { ScrollToTopButton } from '../Layout'
 import ExperiencesBanner from './ExperiencesBanner'
+import QuickInfoCards from './QuickInfoCards'
+import ExploreNearbyLink from './ExploreNearbyLink'
+import BookingCTA from './BookingCTA'
 const RoomsAndSuitesExperiencesImg = '/Experiences/rooms_suites_experiences.jpg'
 const DiningAndBarExperiencesImg = '/Experiences/dining_bar_experiences.jpg'
 const SwimmingPoolExperiencesImg = '/Experiences/swimming_pool_experiences.jpg'
@@ -58,6 +61,7 @@ const posts = [
     imageAlt: 'Spa and Wellness Center Experiences',
     imageUrl: SpaAndWellnessCenterExperiencesImg,
     category: { title: 'Spa & Wellness Center', href: 'spaAndWellnessCenter' },
+    priceRange: 'From 60,000 MMK',
     button: {
       text: 'Discover Wellness',
       href: 'spaAndWellnessCenter',
@@ -71,6 +75,7 @@ const posts = [
     imageAlt: 'Activities Experiences',
     imageUrl: ActivitesExperiencesImg,
     category: { title: 'Activities', href: 'activities' },
+    priceRange: 'From 35,000 MMK',
     button: {
       text: 'Plan Your Adventure',
       href: 'activities',
@@ -108,6 +113,11 @@ export default function Experiences({ onNavigate }: ExperiencesProps) {
               curated experiences that await you at The Evergreen Hill.
             </p>
           </motion.div>
+
+          <div className="mt-12">
+            <QuickInfoCards onNavigate={onNavigate} />
+          </div>
+
           <motion.div
             className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:max-w-none sm:gap-x-6 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-12"
             variants={staggerContainer}
@@ -156,6 +166,11 @@ export default function Experiences({ onNavigate }: ExperiencesProps) {
                     >
                       {post.category.title}
                     </button>
+                    {post.priceRange && (
+                      <span className="text-sm font-medium text-teal-600 bg-teal-50/50 px-2 py-1 rounded">
+                        {post.priceRange}
+                      </span>
+                    )}
                   </div>
                   <div className="relative grow">
                     <p
@@ -179,6 +194,14 @@ export default function Experiences({ onNavigate }: ExperiencesProps) {
               </motion.article>
             ))}
           </motion.div>
+
+          <div className="mt-16">
+            <BookingCTA onNavigate={onNavigate} />
+          </div>
+
+          <div className="mt-16">
+            <ExploreNearbyLink onNavigate={onNavigate} />
+          </div>
         </div>
       </div>
       <ScrollToTopButton />

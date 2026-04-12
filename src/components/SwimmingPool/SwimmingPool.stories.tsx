@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import SwimmingPool from './SwimmingPool'
 
 const meta: Meta<typeof SwimmingPool> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof SwimmingPool> = {
   component: SwimmingPool,
   tags: ['autodocs'],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

@@ -6,7 +6,7 @@
 
 /* Myanmar font + layout adjustments */
 :lang(my),
-[lang="my"],
+[lang='my'],
 html.lang-my {
   font-family: 'Noto Sans Myanmar', 'Myanmar Text', 'Pyidaungsu', sans-serif;
   line-height: 1.9;
@@ -26,10 +26,10 @@ html.lang-my {
   }
 
   /* Attribution: always compact — text hidden until ⓘ clicked */
-  .maplibregl-ctrl-attrib:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-inner {
+  .maplibregl-ctrl-attrib:not(.maplibregl-compact-show):not([open]) .maplibregl-ctrl-attrib-inner {
     display: none !important;
   }
   .maplibregl-ctrl-attrib {
-    background-color: rgba(255,255,255,0.75) !important;
+    background-color: rgba(255, 255, 255, 0.75) !important;
   }
 }

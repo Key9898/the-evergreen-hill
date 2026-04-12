@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import GalleryTabs from './GalleryTabs'
 
 const meta: Meta<typeof GalleryTabs> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof GalleryTabs> = {
   component: GalleryTabs,
   tags: ['autodocs'],
   args: {
-    onTabChange: fn(),
+    onTabChange: vi.fn(),
     activeTab: 'All Photos',
   },
 }

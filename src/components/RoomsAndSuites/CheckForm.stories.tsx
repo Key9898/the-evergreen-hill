@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import CheckForm from './CheckForm'
 
 const meta: Meta<typeof CheckForm> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof CheckForm> = {
   component: CheckForm,
   tags: ['autodocs'],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

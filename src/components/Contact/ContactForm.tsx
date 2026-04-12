@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAnimation } from '../../hooks/useAnimation'
+import { useContactForm } from '../../hooks/useContactForm'
 
 interface ContactFormProps {
   className?: string
@@ -8,27 +8,7 @@ interface ContactFormProps {
 
 export default function ContactForm({ className = '' }: ContactFormProps) {
   const { fadeInUp } = useAnimation()
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-  }
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
+  const { formData, isSubmitting, isSuccess, error, handleChange, handleSubmit } = useContactForm()
 
   return (
     <motion.div
@@ -87,6 +67,7 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
                 required
                 value={formData.subject}
                 onChange={handleChange}
+                aria-label="Select a subject"
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
               >
                 <option value="" disabled>
@@ -119,14 +100,27 @@ export default function ContactForm({ className = '' }: ContactFormProps) {
             </div>
           </div>
         </div>
+        {isSuccess && (
+          <div className="rounded-md bg-green-50 p-4">
+            <p className="text-sm text-green-700">
+              Thank you for your message! We'll get back to you soon.
+            </p>
+          </div>
+        )}
+        {error && (
+          <div className="rounded-md bg-red-50 p-4">
+            <p className="text-sm text-red-700">{error}</p>
+          </div>
+        )}
         <div className="mt-4 flex justify-end">
           <motion.button
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="rounded-md bg-teal-700 px-6 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+            disabled={isSubmitting}
+            className="rounded-md bg-teal-700 px-6 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send Message
+            {isSubmitting ? 'Sending...' : 'Send Message'}
           </motion.button>
         </div>
       </form>

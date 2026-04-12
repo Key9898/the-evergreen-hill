@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { useAnimation } from '../../hooks/useAnimation'
 import { Breadcrumbs } from '../Layout'
 const GalleryImg = '/Gallery/gallery_banner_img.jpg'
@@ -8,8 +9,9 @@ interface GalleryBannerProps {
 }
 
 export default function GalleryBanner({ onNavigate }: GalleryBannerProps) {
+  const { t } = useTranslation()
   const { fadeInDown, fadeInUp, staggerContainer } = useAnimation()
-  const breadcrumbPages = [{ name: 'Gallery', href: '#gallery', current: true }]
+  const breadcrumbPages = [{ name: t('nav.gallery'), href: '#gallery', current: true }]
 
   return (
     <div className="relative bg-slate-900">
@@ -44,16 +46,14 @@ export default function GalleryBanner({ onNavigate }: GalleryBannerProps) {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6"
             variants={fadeInDown}
           >
-            The Heart of Highlands
+            {t('gallery.bannerTitle')}
           </motion.h1>
 
           <motion.p
             className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto"
             variants={fadeInUp}
           >
-            Nestled within the charming town of Kalaw, The Evergreen Hill is your gateway to the
-            legendary Shan Highlands. Explore breathtaking landscapes from our serene and private
-            sanctuary.
+            {t('gallery.bannerDesc')}
           </motion.p>
         </motion.div>
       </div>

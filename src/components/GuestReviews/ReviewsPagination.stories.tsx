@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import ReviewsPagination from './ReviewsPagination'
 
 const meta: Meta<typeof ReviewsPagination> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof ReviewsPagination> = {
   component: ReviewsPagination,
   tags: ['autodocs'],
   args: {
-    onPageChange: fn(),
+    onPageChange: vi.fn(),
     currentPage: 1,
     totalPages: 4,
     totalPosts: 24,

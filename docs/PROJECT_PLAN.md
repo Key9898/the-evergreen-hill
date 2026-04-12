@@ -25,7 +25,7 @@
 | Firestore Indexes | ✅ Complete | firestore.indexes.json created |
 | Firestore Services | ✅ Complete | api.ts, reviews.ts, inquiries.ts — all hooks live |
 | Firebase Analytics | ✅ Complete | Analytics exported from firebase.ts |
-| Custom Hooks | ✅ Complete | 26 hooks in /src/hooks/ (7 updated to Firestore) |
+| Custom Hooks | ✅ Complete | 29 hooks in /src/hooks/ (7 updated to Firestore) |
 | TypeScript Types | ✅ Complete | 5 type files in /src/types/ |
 | Context API | ✅ Complete | AuthContext, PaymentContext |
 | SEO Meta Tags | ✅ Complete | Open Graph tags in index.html |
@@ -173,6 +173,36 @@
 - [x] Injected custom CSS to force-collapse attribution until the user clicks the "i" info icon
 - [x] Removed obsolete manual DOM manipulation logic from Map initialization setup
 
+#### 1.15 Location Page Enhancements
+- [x] Real-time weather integration via Open-Meteo API (free, no API key required)
+- [x] Created `src/hooks/useWeather.ts` — custom hook for fetching weather data
+- [x] Weather displays: temperature, humidity, wind speed, weather condition with dynamic icons
+- [x] Added weather refresh button with loading state
+- [x] Open-Meteo attribution in footer
+- [x] Updated all 8 attraction card images from `/Location/` folder:
+  - `kalaw_central_market.png`
+  - `trekking_trails.jpg`
+  - `historic_railway_station.jpg`
+  - `hnee_paya_bamboo_buddha.png`
+  - `inle_lake.jpg`
+  - `shwe_oo_min_cave.jpg`
+  - `pindaya_caves.jpg`
+  - `green_hill_valley_elephant_camp.png`
+- [x] Removed obsolete `train_station_icon.png`
+- [x] Responsive image grid: 1 col (mobile) → 2 cols (tablet) → 4 cols (desktop)
+- [x] Image aspect ratio 4:3 with hover zoom effect
+
+#### 1.16 RoomsAndSuites Page Enhancements
+- [x] Room Type Filter: Filter by All/Rooms/Suites with dropdown UI
+- [x] Price Sorting: Sort by Default/Low to High/High to Low
+- [x] Real-time Availability Badge: Shows available room count from Firestore bookings
+- [x] Real-time Guest Reviews Rating: Displays average rating and review count per room
+- [x] Created `src/hooks/useFirestoreReviews.ts` — hook for real-time reviews aggregation
+- [x] Created `src/hooks/useFirestoreBookings.ts` — hook for real-time availability computation
+- [x] Added filter/sort translations to `en.json` and `my.json`
+- [x] Fixed filter/sort re-render bug: `key={currentPage}` → `key={roomTypeFilter}-${priceSort}-${currentPage}`
+- [x] Fixed animation replay bug: `whileInView` → `animate="visible"`
+- [x] Fixed pagination count bug: `totalPosts={rooms.length}` → `totalPosts={filteredAndSortedRooms.length}`
 
 #### 1.3 Animation Setup (Framer Motion)
 - [x] Install framer-motion package

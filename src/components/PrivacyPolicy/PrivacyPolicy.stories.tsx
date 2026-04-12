@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import PrivacyPolicy from './PrivacyPolicy'
 
 const meta: Meta<typeof PrivacyPolicy> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof PrivacyPolicy> = {
   component: PrivacyPolicy,
   tags: ['autodocs'],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

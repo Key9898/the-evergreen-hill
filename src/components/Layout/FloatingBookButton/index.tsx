@@ -40,10 +40,12 @@ export default function FloatingBookButton({ onClick }: FloatingBookButtonProps)
             md:gap-2 md:px-5 md:py-3
             lg:gap-3 lg:px-6 lg:py-4"
         >
-          <div className="bg-white/20 rounded-md transition-transform duration-300
+          <div
+            className="bg-white/20 rounded-md transition-transform duration-300
             p-1.5 group-hover:rotate-12
             md:p-1.5
-            lg:p-2">
+            lg:p-2"
+          >
             <CalendarDaysIcon className="text-white size-5 lg:size-6" />
           </div>
           <span className="font-bold tracking-wide uppercase hidden md:inline text-xs lg:text-sm">

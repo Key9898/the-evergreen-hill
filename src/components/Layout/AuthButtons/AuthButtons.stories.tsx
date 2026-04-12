@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import AuthButtons from '.'
 import { AuthProvider } from '../../../context/AuthContext'
 
@@ -17,8 +17,8 @@ const meta: Meta<typeof AuthButtons> = {
     ),
   ],
   args: {
-    onOpenLogin: fn(),
-    onNavigate: fn(),
+    onOpenLogin: vi.fn(),
+    onNavigate: vi.fn(),
   },
 }
 

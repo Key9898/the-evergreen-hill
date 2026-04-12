@@ -8,7 +8,7 @@ import {
   SparklesIcon,
   EyeIcon,
 } from '@heroicons/react/24/outline'
-import { useState, useEffect } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import { LuCoffee } from 'react-icons/lu'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { Header } from '../Layout'
@@ -17,17 +17,11 @@ import { ScrollToTopButton } from '../Layout'
 import RoomsSuitesBanner from './RoomsAndSuitesBanner'
 import RoomsSuitesPagination from './RoomsAndSuitesPagination'
 import { BookForm as BookNowForm } from '../Layout'
-const DeluxeGardenViewImg = '/RoomsAndSuites/deluxe_garden_view.jpg'
-const DeluxeMountainViewImg = '/RoomsAndSuites/deluxe_mountain_view.jpg'
-const HoneymoonSuiteImg = '/RoomsAndSuites/honeymoon_suite.jpg'
-const TheEvergreenHillSuiteImg = '/RoomsAndSuites/the_evergreen_hill_suite.jpg'
-const DeluxeTwinGardenViewImg = '/RoomsAndSuites/deluxe_twin_garden_view.jpg'
-const DeluxeTwinMountainViewImg = '/RoomsAndSuites/deluxe_twin_mountain_view.jpg'
-const FamilySuiteImg = '/RoomsAndSuites/family_suite.jpg'
-const ExecutiveSuiteImg = '/RoomsAndSuites/executive_suite.jpg'
 import ViewDetails from './ViewDetails'
-
-const ROOMS_PER_TYPE = 5
+import { ROOMS_PER_TYPE, ROOM_DATA } from '../../constants/rooms'
+import { useFirestoreBookings, type SearchCriteria } from '../../hooks/useFirestoreBookings'
+import { useFirestoreReviews } from '../../hooks/useFirestoreReviews'
+import { getSearchCriteriaFromStorage } from '../../utils/availability'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -65,15 +59,6 @@ const standardItemVariants = {
     scale: 1,
     transition: { duration: 0.4, ease: 'easeOut' as const },
   },
-}
-
-type Booking = {
-  roomName: string
-  checkIn: string
-  checkOut: string
-  adults?: number
-  children?: number
-  rooms: number
 }
 
 const getFeatureIcon = (featureKey: string) => {
@@ -120,180 +105,72 @@ interface RoomsSuitesProps {
 export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
   const { t } = useTranslation()
 
-  const rooms = [
-    {
-      id: 1,
-      nameKey: 'deluxeGarden',
-      type: 'Room',
-      price: 'From 350,000 MMK/night',
-      guests: '2 Guests',
-      size: '35 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'privateBathroom',
-        'gardenView',
-      ],
-      imageAlt: 'Deluxe Garden View',
-      imageUrl: DeluxeGardenViewImg,
-    },
-    {
-      id: 2,
-      nameKey: 'deluxeMountain',
-      type: 'Room',
-      price: 'From 450,000 MMK/night',
-      guests: '2 Guests',
-      size: '40 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'privateBalcony',
-        'mountainView',
-      ],
-      imageAlt: 'Deluxe Mountain View',
-      imageUrl: DeluxeMountainViewImg,
-    },
-    {
-      id: 3,
-      nameKey: 'honeymoonSuite',
-      type: 'Suite',
-      price: 'From 950,000 MMK/night',
-      guests: '2 Guests',
-      size: '70 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'privateJacuzzi',
-        'romanticSetting',
-      ],
-      imageAlt: 'Honeymoon Suite',
-      imageUrl: HoneymoonSuiteImg,
-    },
-    {
-      id: 4,
-      nameKey: 'evergreenSuite',
-      type: 'Suite',
-      price: 'From 1,350,000 MMK/night',
-      guests: '4 Guests',
-      size: '95 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'butlerService',
-        'luxuryAmenities',
-      ],
-      imageAlt: 'The Evergreen Hill Suite',
-      imageUrl: TheEvergreenHillSuiteImg,
-    },
-    {
-      id: 5,
-      nameKey: 'deluxeTwinGarden',
-      type: 'Room',
-      price: 'From 350,000 MMK/night',
-      guests: '2 Guests',
-      size: '35 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'privateBathroom',
-        'gardenView',
-      ],
-      imageAlt: 'Deluxe Twin Garden View',
-      imageUrl: DeluxeTwinGardenViewImg,
-    },
-    {
-      id: 6,
-      nameKey: 'deluxeTwinMountain',
-      type: 'Room',
-      price: 'From 450,000 MMK/night',
-      guests: '2 Guests',
-      size: '40 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'privateBathroom',
-        'mountainView',
-      ],
-      imageAlt: 'Deluxe Twin Mountain View',
-      imageUrl: DeluxeTwinMountainViewImg,
-    },
-    {
-      id: 7,
-      nameKey: 'familySuite',
-      type: 'Suite',
-      price: 'From 650,000 MMK/night',
-      guests: '4 Guests',
-      size: '65 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'livingArea',
-        'familyFriendly',
-      ],
-      imageAlt: 'Family Suite',
-      imageUrl: FamilySuiteImg,
-    },
-    {
-      id: 8,
-      nameKey: 'executiveSuite',
-      type: 'Suite',
-      price: 'From 800,000 MMK/night',
-      guests: '2 Guests',
-      size: '55 sqm',
-      features: [
-        'freeWifi',
-        'smartTv',
-        'coffeeTeaMaker',
-        'airConditioning',
-        'premiumAmenities',
-        'panoramicView',
-      ],
-      imageAlt: 'Executive Suite',
-      imageUrl: ExecutiveSuiteImg,
-    },
-  ]
+  const rooms = useMemo(
+    () =>
+      ROOM_DATA.map((room) => ({
+        ...room,
+        name: t(`rooms.roomTypes.${room.nameKey}`),
+        description: t(`rooms.roomDescriptions.${room.nameKey}`),
+      })),
+    [t]
+  )
 
-  const getRoomName = (nameKey: string) => t(`rooms.roomTypes.${nameKey}`)
-  const getRoomDescription = (nameKey: string) => t(`rooms.roomDescriptions.${nameKey}`)
-  // Pagination state and derived data
+  const getRoomName = useCallback((nameKey: string) => t(`rooms.roomTypes.${nameKey}`), [t])
+  const getRoomDescription = useCallback(
+    (nameKey: string) => t(`rooms.roomDescriptions.${nameKey}`),
+    [t]
+  )
+
+  const [roomTypeFilter, setRoomTypeFilter] = useState<'all' | 'Room' | 'Suite'>('all')
+  const [priceSort, setPriceSort] = useState<'default' | 'low-to-high' | 'high-to-low'>('default')
+
+  const filteredAndSortedRooms = useMemo(() => {
+    let result = rooms
+    if (roomTypeFilter !== 'all') {
+      result = result.filter((room) => room.type === roomTypeFilter)
+    }
+    if (priceSort !== 'default') {
+      result = [...result].sort((a, b) => {
+        const priceA = parseInt(a.price.replace(/[^0-9]/g, ''), 10)
+        const priceB = parseInt(b.price.replace(/[^0-9]/g, ''), 10)
+        return priceSort === 'low-to-high' ? priceA - priceB : priceB - priceA
+      })
+    }
+    return result
+  }, [rooms, roomTypeFilter, priceSort])
+
   const postsPerPage = 4
   const [currentPage, setCurrentPage] = useState(1)
-  const filteredPosts = rooms
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage)
+  const totalPages = Math.ceil(filteredAndSortedRooms.length / postsPerPage)
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentRooms = filteredPosts.slice(indexOfFirstPost, indexOfLastPost)
+  const currentRooms = useMemo(
+    () => filteredAndSortedRooms.slice(indexOfFirstPost, indexOfLastPost),
+    [filteredAndSortedRooms, indexOfFirstPost, indexOfLastPost]
+  )
   const handlePageChange = (page: number) => setCurrentPage(page)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [roomTypeFilter, priceSort])
 
   const [bookFormOpen, setBookFormOpen] = useState(false)
   const [selectedRoom, setSelectedRoom] = useState('')
 
-  // Details modal state
-  type Room = (typeof rooms)[number] & { name?: string; description?: string; gallery?: string[] }
+  type Room = (typeof rooms)[number] & { gallery?: string[] }
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [detailsRoom, setDetailsRoom] = useState<Room | null>(null)
-  const openDetails = (room: Room) => {
-    setDetailsRoom({
-      ...room,
-      name: getRoomName(room.nameKey),
-      description: getRoomDescription(room.nameKey),
-    })
-    setDetailsOpen(true)
-  }
+  const openDetails = useCallback(
+    (room: (typeof rooms)[number]) => {
+      setDetailsRoom({
+        ...room,
+        name: getRoomName(room.nameKey),
+        description: getRoomDescription(room.nameKey),
+      })
+      setDetailsOpen(true)
+    },
+    [getRoomName, getRoomDescription]
+  )
   const closeDetails = () => {
     setDetailsOpen(false)
     setDetailsRoom(null)
@@ -304,93 +181,32 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
     setBookFormOpen(true)
   }
 
-  // Availability: read saved search criteria and existing bookings
-  const [searchCriteria, setSearchCriteria] = useState<{
-    checkIn: string
-    checkOut: string
-  } | null>(null)
-  const [bookings, setBookings] = useState<Booking[]>([])
-  const [availability, setAvailability] = useState<Record<string, number>>({})
+  const { computeAllAvailability } = useFirestoreBookings()
+  const { computeRoomStats } = useFirestoreReviews()
+
+  const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | null>(null)
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem('eh_check_search')
-      setSearchCriteria(raw ? JSON.parse(raw) : null)
-    } catch {
-      setSearchCriteria(null)
-    }
+    setSearchCriteria(getSearchCriteriaFromStorage())
   }, [])
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem('eh_bookings')
-      setBookings(raw ? JSON.parse(raw) : [])
-    } catch {
-      setBookings([])
-    }
-  }, [bookFormOpen])
+  const availability = useMemo(() => {
+    if (!searchCriteria) return {}
+    const roomNameKeys = ROOM_DATA.map((r) => r.nameKey)
+    return computeAllAvailability(roomNameKeys, searchCriteria)
+  }, [searchCriteria, computeAllAvailability])
 
-  const datesOverlap = (aStart: string, aEnd: string, bStart: string, bEnd: string) =>
-    new Date(aStart) < new Date(bEnd) && new Date(bStart) < new Date(aEnd)
-
-  useEffect(() => {
-    if (!searchCriteria) {
-      setAvailability({})
-      return
-    }
-    const map: Record<string, number> = {}
-    rooms.forEach((r) => {
-      const roomName = getRoomName(r.nameKey)
-      const count = bookings.reduce((acc, b) => {
-        if (
-          b.roomName === roomName &&
-          datesOverlap(searchCriteria.checkIn, searchCriteria.checkOut, b.checkIn, b.checkOut)
-        ) {
-          return acc + (typeof b.rooms === 'number' ? b.rooms : 1)
-        }
-        return acc
-      }, 0)
-      map[r.nameKey] = Math.max(ROOMS_PER_TYPE - count, 0)
-    })
-    setAvailability(map)
-  }, [searchCriteria, bookings])
-
-  // Dynamic rating/reviews from GuestReviews (localStorage)
-  const [roomStats, setRoomStats] = useState<Record<string, { avg: number; count: number }>>({})
+  const roomStats = useMemo(() => computeRoomStats(), [computeRoomStats])
   const normalizeName = (s: string) => s.toLowerCase().trim()
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem('eh_featured_reviews')
-      const list: Array<{ rating?: number; roomType?: string }> = raw ? JSON.parse(raw) : []
-      const sumMap = new Map<string, { sum: number; count: number }>()
-      for (const r of list) {
-        if (!r || !r.roomType || typeof r.rating !== 'number') continue
-        const key = normalizeName(r.roomType)
-        const entry = sumMap.get(key) ?? { sum: 0, count: 0 }
-        entry.sum += r.rating
-        entry.count += 1
-        sumMap.set(key, entry)
-      }
-      const out: Record<string, { avg: number; count: number }> = {}
-      for (const [key, { sum, count }] of sumMap.entries()) {
-        out[key] = { avg: count ? sum / count : 0, count }
-      }
-      setRoomStats(out)
-    } catch {
-      setRoomStats({})
-    }
-  }, [])
   return (
     <div className="min-h-screen">
       <Header onNavigate={onNavigate} activePage="roomsAndSuites" />
-      <div className="relative -mt-40 sm:-mt-44 lg:-mt-48">
+      <div className="relative -mt-40 sm:-mt-44 lg:-mt-48 z-10">
         <RoomsSuitesBanner onNavigate={onNavigate} />
       </div>
 
-      {/* Main Content */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        {/* Header Section */}
         <motion.div
           className="text-center mb-12"
           initial="hidden"
@@ -406,12 +222,66 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
           </p>
         </motion.div>
 
-        {/* Rooms Grid */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-slate-700">{t('rooms.filterByType')}:</span>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setRoomTypeFilter('all')}
+                className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  roomTypeFilter === 'all'
+                    ? 'bg-teal-700 text-white'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                }`}
+              >
+                {t('rooms.all')}
+              </button>
+              <button
+                type="button"
+                onClick={() => setRoomTypeFilter('Room')}
+                className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  roomTypeFilter === 'Room'
+                    ? 'bg-teal-700 text-white'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                }`}
+              >
+                {t('rooms.rooms')}
+              </button>
+              <button
+                type="button"
+                onClick={() => setRoomTypeFilter('Suite')}
+                className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  roomTypeFilter === 'Suite'
+                    ? 'bg-teal-700 text-white'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                }`}
+              >
+                {t('rooms.suites')}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-slate-700">{t('rooms.sortByPrice')}:</span>
+            <select
+              value={priceSort}
+              onChange={(e) => setPriceSort(e.target.value as typeof priceSort)}
+              aria-label={t('rooms.sortByPrice')}
+              className="px-3 py-1.5 text-sm rounded-md border border-slate-300 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            >
+              <option value="default">{t('rooms.default')}</option>
+              <option value="low-to-high">{t('rooms.lowToHigh')}</option>
+              <option value="high-to-low">{t('rooms.highToLow')}</option>
+            </select>
+          </div>
+        </div>
+
         <motion.div
+          key={`${roomTypeFilter}-${priceSort}-${currentPage}`}
           className="grid grid-cols-1 gap-8 lg:grid-cols-2"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          animate="visible"
           variants={staggerContainer}
         >
           {currentRooms.map((room) => (
@@ -421,11 +291,10 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
               variants={cardVariants}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              {/* Room Image */}
               <div className="relative h-64 sm:h-72 group overflow-hidden rounded-md">
                 <img
                   src={room.imageUrl}
-                  alt={getRoomName(room.nameKey)}
+                  alt={room.name}
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
@@ -436,29 +305,26 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
                     {room.type}
                   </span>
                 </div>
-                {roomStats[normalizeName(getRoomName(room.nameKey))] &&
-                roomStats[normalizeName(getRoomName(room.nameKey))].count > 0 ? (
+                {roomStats[normalizeName(room.name)] &&
+                roomStats[normalizeName(room.name)].count > 0 ? (
                   <div className="absolute top-4 right-4">
                     <div className="flex items-center space-x-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1">
                       <StarIcon className="h-4 w-4 text-yellow-400" />
                       <span className="text-sm font-medium text-slate-900">
-                        {roomStats[normalizeName(getRoomName(room.nameKey))].avg.toFixed(1)}
+                        {roomStats[normalizeName(room.name)].avg.toFixed(1)}
                       </span>
                       <span className="text-xs text-slate-600">
-                        ({roomStats[normalizeName(getRoomName(room.nameKey))].count})
+                        ({roomStats[normalizeName(room.name)].count})
                       </span>
                     </div>
                   </div>
                 ) : null}
               </div>
 
-              {/* Room Content */}
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-xl font-semibold text-teal-700 mb-1">
-                      {getRoomName(room.nameKey)}
-                    </h3>
+                    <h3 className="text-xl font-semibold text-teal-700 mb-1">{room.name}</h3>
                     <div className="flex items-center space-x-4 text-sm text-slate-600">
                       <span>{room.guests}</span>
                       <span>•</span>
@@ -484,11 +350,8 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
                   </div>
                 </div>
 
-                <p className="text-slate-600 mb-4 text-lg/6 leading-relaxed">
-                  {getRoomDescription(room.nameKey)}
-                </p>
+                <p className="text-slate-600 mb-4 text-lg/6 leading-relaxed">{room.description}</p>
 
-                {/* Features */}
                 <div className="mb-6">
                   <h4 className="text-base font-medium text-teal-700 mb-3">
                     {t('rooms.roomFeatures')}
@@ -506,12 +369,11 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
                   </div>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="flex space-x-3">
                   <motion.button
                     type="button"
                     className="flex-1 bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                    onClick={() => handleBookNowClick(getRoomName(room.nameKey))}
+                    onClick={() => handleBookNowClick(room.name)}
                     disabled={
                       Boolean(searchCriteria) &&
                       (availability[room.nameKey] ?? ROOMS_PER_TYPE) === 0
@@ -536,17 +398,14 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
           ))}
         </motion.div>
 
-        {/* Pagination */}
         <RoomsSuitesPagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
-          totalPosts={filteredPosts.length}
+          totalPosts={filteredAndSortedRooms.length}
           postsPerPage={postsPerPage}
         />
-        {/* ViewDetails */}
         <ViewDetails open={detailsOpen} onClose={closeDetails} room={detailsRoom} />
-        {/* Additional Information */}
         <motion.div
           className="mt-16 bg-slate-50 rounded-md shadow-lg p-8"
           initial="hidden"
@@ -624,15 +483,11 @@ export default function RoomsSuites({ onNavigate }: RoomsSuitesProps) {
       <ScrollToTopButton />
       <Footer onNavigate={onNavigate} />
 
-      {/* Book Form Modal */}
       {bookFormOpen && (
         <BookNowForm
           isOpen={bookFormOpen}
           onClose={() => setBookFormOpen(false)}
           defaultRoomType={selectedRoom}
-          onBookingSaved={(booking) => {
-            setBookings((prev) => [...prev, booking])
-          }}
         />
       )}
     </div>

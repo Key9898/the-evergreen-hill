@@ -7,6 +7,73 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- 2026-04-12: **Experiences Page Enhancements**:
+  - Quick Info Cards: Pool (7AM-9PM), Spa (9AM-9PM), Dining (6:30AM-11PM) hours with clickable navigation
+  - Explore Nearby Link: Section linking to Location page with nearby attractions description
+  - Booking CTA: Gradient section with contact info (phone/email) and action buttons
+  - Price Ranges: Added to Spa ($50-$200) and Activities ($30-$150) cards
+  - Created `src/components/Experiences/QuickInfoCards.tsx` — clickable hours cards with color-coded styling
+  - Created `src/components/Experiences/ExploreNearbyLink.tsx` — Location page link component
+  - Created `src/components/Experiences/BookingCTA.tsx` — booking call-to-action section
+
+### Fixed
+- 2026-04-12: **QuickInfoCards Icon Error**:
+  - `QuickInfoCards.tsx` — `TbSwim` icon doesn't exist in react-icons/tb → Replaced with `TbBeach` (consistent with SwimmingPool.tsx)
+- 2026-04-12: **Contact Page — Map Attribution Control Bug**:
+  - `map.tsx` — MapLibre GL JS auto-adds `open` attribute and `maplibregl-compact-show` class on init with `compact: true` → Added `useEffect` to remove initial `open` attribute and `maplibregl-compact-show` class on map load
+  - `index.css` — CSS selector only checked for `.maplibregl-compact-show` class but not `[open]` attribute → Updated selector to include `:not([open])`
+  - Result: ⓘ icon shows by default; click reveals "© CARTO, © OpenStreetMap contributors" text
+- 2026-04-12: **Contact Page — ContactForm Firestore Integration**:
+  - `ContactForm.tsx` — Was not properly saving to Firestore → Migrated to use `createContact` from `src/services/inquiries.ts`
+  - Result: Contact form submissions now save to `contacts` collection in Firestore
+- 2026-04-12: **Contact Page — ContactForm Accessibility**:
+  - `ContactForm.tsx` — Select element missing accessible name for screen readers → Added `aria-label` to the subject select element
+
+### Added
+- 2026-04-12: **RoomsAndSuites Page Enhancements**:
+  - Room Type Filter: Filter by All/Rooms/Suites with dropdown UI
+  - Price Sorting: Sort by Default/Low to High/High to Low
+  - Real-time Availability Badge: Shows available room count from Firestore bookings
+  - Real-time Guest Reviews Rating: Displays average rating and review count per room
+  - Created `src/hooks/useFirestoreReviews.ts` — hook for real-time reviews aggregation
+  - Created `src/hooks/useFirestoreBookings.ts` — hook for real-time availability computation
+  - Added filter/sort translations to `en.json` and `my.json`
+
+### Fixed
+- 2026-04-12: **RoomsAndSuites Accessibility**:
+  - `RoomsAndSuites.tsx` — Select element missing accessible name → Added `aria-label={t('rooms.sortByPrice')}` to price sort dropdown
+- 2026-04-12: **Check Now Modal Real-time Fix**:
+  - `CheckForm.tsx` — Was using localStorage for availability check → Migrated to Firestore real-time via `useFirestoreBookings` hook
+  - `CheckForm.tsx` — Changed imports from `ROOM_NAMES` to `ROOM_DATA` for consistent room identification
+  - `CheckForm.tsx` — Fixed TypeScript error: `room.name` doesn't exist on ROOM_DATA → Changed to `room.imageAlt`
+- 2026-04-12: **RoomsAndSuites Filter/Sort Bugs**:
+  - `RoomsAndSuites.tsx` — `key={currentPage}` caused no re-render on filter/sort change → Changed to `key={roomTypeFilter}-${priceSort}-${currentPage}`
+  - `RoomsAndSuites.tsx` — `whileInView` with `viewport={{ once: true }}` prevented animation replay → Changed to `animate="visible"`
+  - `RoomsAndSuites.tsx` — Pagination `totalPosts={rooms.length}` showed wrong count when filtering → Fixed to `totalPosts={filteredAndSortedRooms.length}`
+  - `RoomsAndSuites.tsx` — Price Sort showed only Suites on first page due to pagination → Expected behavior (High-to-Low shows Suites first; Low-to-High shows Rooms first)
+
+### Added
+- 2026-04-11: **Location Page Enhancements**:
+  - Real-time weather integration via Open-Meteo API (free, no API key required)
+  - Created `src/hooks/useWeather.ts` — custom hook for fetching weather data
+  - Weather displays: temperature, humidity, wind speed, weather condition with dynamic icons
+  - Added weather refresh button with loading state
+  - Open-Meteo attribution in footer
+  - Updated all 8 attraction card images from `/Location/` folder
+  - Responsive image grid: 1 col (mobile) → 2 cols (tablet) → 4 cols (desktop)
+  - Image aspect ratio 4:3 with hover zoom effect
+
+### Changed
+- 2026-04-11: **Location Page Image Update**:
+  - `ExploreNearby.tsx` — Updated all 8 attraction card images to use local files from `/Location/` folder
+  - Removed obsolete `train_station_icon.png`
+
+### Fixed
+- 2026-04-11: **Events Page Bugs Fixed**:
+  - `EventsForm.tsx` — Date field validation bug: `max` attribute allowed only past dates for event booking → Changed to `min` attribute to allow only future dates
+  - `Events.tsx` — activePage prop bug: Set to `"gallery"` instead of `"events"` → Fixed to correct page highlighting
+
+### Added
 - 2026-04-04: **Wave-Notch Header Design Concept**:
   - Implemented 3-column grid layout (`grid-cols-3`) for `Header.tsx` and `HeroSection.tsx`.
   - Centered `Logo` for brand prominence; left-aligned `LanguageSwitcher`.

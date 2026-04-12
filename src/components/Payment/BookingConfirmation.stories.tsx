@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import BookingConfirmation from './BookingConfirmation'
 
 const meta: Meta<typeof BookingConfirmation> = {
@@ -7,8 +7,8 @@ const meta: Meta<typeof BookingConfirmation> = {
   component: BookingConfirmation,
   tags: ['autodocs'],
   args: {
-    onBackToHome: fn(),
-    onViewBookings: fn(),
+    onBackToHome: vi.fn(),
+    onViewBookings: vi.fn(),
     confirmation: {
       bookingId: 'booking-001',
       confirmationNumber: 'EH-2024-001',

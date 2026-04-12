@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import EventsForm from './EventsForm'
 
 const meta: Meta<typeof EventsForm> = {
@@ -7,8 +7,8 @@ const meta: Meta<typeof EventsForm> = {
   component: EventsForm,
   tags: ['autodocs'],
   args: {
-    onClose: fn(),
-    onSubmit: fn(),
+    onClose: vi.fn(),
+    onSubmit: vi.fn(),
   },
 }
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import Footer from '.'
 
 const meta: Meta<typeof Footer> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof Footer> = {
   component: Footer,
   tags: ['autodocs'],
   args: {
-    onNavigate: fn(),
+    onNavigate: vi.fn(),
   },
 }
 

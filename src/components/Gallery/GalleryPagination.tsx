@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { useAnimation } from '../../hooks/useAnimation'
 
 interface PaginationProps {
@@ -17,6 +18,7 @@ export default function GalleryPagination({
   totalPosts,
   postsPerPage,
 }: PaginationProps) {
+  const { t } = useTranslation()
   const { fadeInUp } = useAnimation()
 
   const perPage =
@@ -67,7 +69,7 @@ export default function GalleryPagination({
               whileTap={{ scale: 0.98 }}
               className="relative inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Previous
+              {t('gallery.pagination.previous')}
             </motion.button>
             <motion.button
               type="button"
@@ -77,16 +79,17 @@ export default function GalleryPagination({
               whileTap={{ scale: 0.98 }}
               className="relative ml-3 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Next
+              {t('gallery.pagination.next')}
             </motion.button>
           </div>
 
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
               <p className="text-sm text-slate-700">
-                Showing <span className="font-medium">{startItem}</span> to{' '}
-                <span className="font-medium">{endItem}</span> of{' '}
-                <span className="font-medium">{totalPosts}</span> results
+                {t('gallery.pagination.showing')} <span className="font-medium">{startItem}</span>{' '}
+                {t('gallery.pagination.to')} <span className="font-medium">{endItem}</span>{' '}
+                {t('gallery.pagination.of')} <span className="font-medium">{totalPosts}</span>{' '}
+                {t('gallery.pagination.results')}
               </p>
             </div>
             <div>
@@ -102,7 +105,7 @@ export default function GalleryPagination({
                   whileTap={{ scale: 0.98 }}
                   className="relative inline-flex items-center rounded-l-md px-2 py-2 text-slate-400 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="sr-only">Previous</span>
+                  <span className="sr-only">{t('gallery.pagination.previous')}</span>
                   <ChevronLeftIcon aria-hidden="true" className="h-5 w-5" />
                 </motion.button>
 
@@ -131,7 +134,7 @@ export default function GalleryPagination({
                   whileTap={{ scale: 0.98 }}
                   className="relative inline-flex items-center rounded-r-md px-2 py-2 text-slate-400 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="sr-only">Next</span>
+                  <span className="sr-only">{t('gallery.pagination.next')}</span>
                   <ChevronRightIcon aria-hidden="true" className="h-5 w-5" />
                 </motion.button>
               </nav>

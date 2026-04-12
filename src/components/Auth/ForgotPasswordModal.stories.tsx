@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import ForgotPasswordModal from './ForgotPasswordModal'
 import { AuthProvider } from '../../context/AuthContext'
 
@@ -15,8 +15,8 @@ const meta: Meta<typeof ForgotPasswordModal> = {
     ),
   ],
   args: {
-    onClose: fn(),
-    onNavigateLogin: fn(),
+    onClose: vi.fn(),
+    onNavigateLogin: vi.fn(),
   },
 }
 

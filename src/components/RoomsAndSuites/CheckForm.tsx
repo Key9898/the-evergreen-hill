@@ -1,15 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { CalendarIcon, UserIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { useTranslation } from 'react-i18next'
+import { ROOMS_PER_TYPE, ROOM_DATA } from '../../constants/rooms'
+import { useFirestoreBookings, type SearchCriteria } from '../../hooks/useFirestoreBookings'
+import { getSearchCriteriaFromStorage } from '../../utils/availability'
 
 interface CheckFormProps {
   onNavigate?: (page: string) => void
 }
 
 export default function CheckForm({ onNavigate }: CheckFormProps) {
+  const { t } = useTranslation()
   const today = new Date().toISOString().split('T')[0]
-  const [checkIn, setCheckIn] = useState<string>(today)
-  const [checkOut, setCheckOut] = useState<string>(today)
+
+  const savedCriteria = useMemo(() => getSearchCriteriaFromStorage(), [])
+  const { computeAllAvailability } = useFirestoreBookings()
+
+  const [checkIn, setCheckIn] = useState<string>(savedCriteria?.checkIn || today)
+  const [checkOut, setCheckOut] = useState<string>(savedCriteria?.checkOut || today)
   const [adults, setAdults] = useState<number>(0)
   const [children, setChildren] = useState<number>(0)
   const [childrenAges, setChildrenAges] = useState<number[]>([])
@@ -33,23 +42,9 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
     })
   }, [children])
 
-  const adultLabel = adults === 1 ? 'Adult' : adults >= 2 ? 'Adults' : 'Adult'
-  const childrenLabel = children === 1 ? 'Child' : 'Children'
-
-  const ROOMS_PER_TYPE = 5
-  const ROOM_NAMES = [
-    'Deluxe Garden View',
-    'Deluxe Mountain View',
-    'Honeymoon Suite',
-    'The Evergreen Hill Suite',
-    'Deluxe Twin Garden View',
-    'Deluxe Twin Mountain View',
-    'Family Suite',
-    'Executive Suite',
-  ]
-
-  const datesOverlap = (aStart: string, aEnd: string, bStart: string, bEnd: string) =>
-    new Date(aStart) < new Date(bEnd) && new Date(bStart) < new Date(aEnd)
+  const adultLabel =
+    adults === 1 ? t('booking.adult') : adults >= 2 ? t('booking.adults') : t('booking.adult')
+  const childrenLabel = children === 1 ? t('booking.child') : t('booking.children')
 
   const [toast, setToast] = useState<{ open: boolean; title: string; lines: string[] }>({
     open: false,
@@ -63,44 +58,23 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
     return () => clearTimeout(t)
   }, [toast.open])
 
-  const computeAvailability = (criteria: { checkIn: string; checkOut: string }) => {
-    try {
-      const raw = localStorage.getItem('eh_bookings')
-      const list: Array<{ roomName: string; checkIn: string; checkOut: string }> = raw
-        ? JSON.parse(raw)
-        : []
-      const map: Record<string, number> = {}
-      ROOM_NAMES.forEach((name) => {
-        const count = list.filter(
-          (b) =>
-            b.roomName === name &&
-            datesOverlap(criteria.checkIn, criteria.checkOut, b.checkIn, b.checkOut)
-        ).length
-        map[name] = Math.max(ROOMS_PER_TYPE - count, 0)
-      })
-      return map
-    } catch {
-      const fallback: Record<string, number> = {}
-      ROOM_NAMES.forEach((name) => (fallback[name] = ROOMS_PER_TYPE))
-      return fallback
-    }
-  }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const criteria = { checkIn, checkOut, adults, children, childrenAges }
-    localStorage.setItem('eh_check_search', JSON.stringify(criteria))
+    const criteria: SearchCriteria = { checkIn, checkOut }
+    const searchCriteria = { checkIn, checkOut, adults, children, childrenAges }
+    localStorage.setItem('eh_check_search', JSON.stringify(searchCriteria))
 
-    const avail = computeAvailability({ checkIn, checkOut })
-    const lines = ROOM_NAMES.map((name) =>
-      (avail[name] ?? ROOMS_PER_TYPE) > 0
-        ? `${name}: ${avail[name]} of ${ROOMS_PER_TYPE} available`
-        : `${name}: Booked fully for selected dates`
+    const roomNameKeys = ROOM_DATA.map((r) => r.nameKey)
+    const avail = computeAllAvailability(roomNameKeys, criteria)
+    const lines = ROOM_DATA.map((room) =>
+      (avail[room.nameKey] ?? ROOMS_PER_TYPE) > 0
+        ? `${room.imageAlt}: ${t('booking.available', { count: avail[room.nameKey], total: ROOMS_PER_TYPE })}`
+        : `${room.imageAlt}: ${t('booking.bookedFully')}`
     )
 
     setToast({
       open: true,
-      title: `Availability for ${checkIn} → ${checkOut}`,
+      title: t('booking.availabilityFor', { checkIn, checkOut }),
       lines,
     })
 
@@ -113,10 +87,10 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
         onSubmit={handleSubmit}
         className="rounded-md bg-white backdrop-blur-md shadow-lg ring-1 ring-white/20"
       >
-        <div className="grid grid-cols-1 gap-5 p-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-5 p-5 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
           <div className="flex flex-col">
             <label htmlFor="check-in" className="text-sm font-medium text-teal-600 mb-1">
-              Check-in
+              {t('booking.checkIn')}
             </label>
             <div className="relative">
               <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-teal-700">
@@ -129,7 +103,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
                 value={checkIn}
                 onChange={(e) => setCheckIn(e.target.value)}
                 placeholder="dd/mm/yyyy"
-                title="Select check-in date"
+                title={t('booking.selectDates')}
                 required
                 className="w-full h-12 rounded-md border border-slate-300 bg-white/90 pl-9 pr-3 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
               />
@@ -138,7 +112,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
 
           <div className="flex flex-col">
             <label htmlFor="check-out" className="text-sm font-medium text-teal-600 mb-1">
-              Check-out
+              {t('booking.checkOut')}
             </label>
             <div className="relative">
               <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-teal-700">
@@ -152,7 +126,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
                 min={checkIn}
                 onChange={(e) => setCheckOut(e.target.value)}
                 placeholder="dd/mm/yyyy"
-                title="Select check-out date"
+                title={t('booking.selectDates')}
                 required
                 className="w-full h-12 rounded-md border border-slate-300 bg-white/90 pl-9 pr-3 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
               />
@@ -172,7 +146,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
                   type="button"
                   id="adults-counter"
                   onClick={() => handleAdultChange(false)}
-                  aria-label="Decrease adults"
+                  aria-label={t('booking.adult')}
                   className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-teal-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-teal-600"
                   disabled={adults <= 0}
                   whileHover={{ scale: 1.1 }}
@@ -186,7 +160,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
                 <motion.button
                   type="button"
                   onClick={() => handleAdultChange(true)}
-                  aria-label="Increase adults"
+                  aria-label={t('booking.adult')}
                   className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-teal-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-600"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -211,7 +185,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
                   type="button"
                   id="children-counter"
                   onClick={() => handleChildrenChange(false)}
-                  aria-label="Decrease children"
+                  aria-label={t('booking.child')}
                   className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-teal-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-teal-600"
                   disabled={children <= 0}
                   whileHover={{ scale: 1.1 }}
@@ -225,7 +199,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
                 <motion.button
                   type="button"
                   onClick={() => handleChildrenChange(true)}
-                  aria-label="Increase children"
+                  aria-label={t('booking.child')}
                   className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-teal-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-600"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -238,15 +212,13 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
           </div>
 
           {children > 0 && (
-            <div className="sm:col-span-2 lg:col-span-5 pt-4 border-t border-white/20">
-              <div className="text-xs text-slate-700 mb-3">
-                For accurate room pricing, make sure to enter your children's correct ages.
-              </div>
+            <div className="sm:col-span-2 lg:col-span-4 xl:col-span-5 pt-4 border-t border-white/20">
+              <div className="text-xs text-slate-700 mb-3">{t('booking.childrenAgesNotice')}</div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {childrenAges.map((age, index) => (
                   <div key={index}>
                     <label htmlFor={`childAge${index}`} className="sr-only">
-                      Age of Child {index + 1}
+                      {t('booking.ageOfChild', { number: index + 1 })}
                     </label>
                     <select
                       id={`childAge${index}`}
@@ -255,15 +227,15 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
                         const val = parseInt(e.target.value)
                         setChildrenAges((prev) => prev.map((a, i) => (i === index ? val : a)))
                       }}
-                      aria-label={`Age of Child ${index + 1}`}
+                      aria-label={t('booking.ageOfChild', { number: index + 1 })}
                       className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-slate-900 outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600"
                     >
                       <option value={-1} disabled>
-                        Age of Child {index + 1}
+                        {t('booking.ageOfChild', { number: index + 1 })}
                       </option>
                       {Array.from({ length: 17 }, (_, i) => (
                         <option key={i + 1} value={i + 1}>
-                          {i + 1} years old
+                          {t('booking.yearsOld', { years: i + 1 })}
                         </option>
                       ))}
                     </select>
@@ -280,14 +252,18 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Check Now
+              {t('booking.checkNow')}
             </motion.button>
           </div>
         </div>
       </form>
 
       {toast.open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[360px] rounded-md border border-slate-200 bg-teal-50 shadow-lg">
+        <div
+          className="fixed bottom-6 right-6 z-50 w-[360px] rounded-md border border-slate-200 bg-teal-50 shadow-lg"
+          role="status"
+          aria-live="polite"
+        >
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
             <p className="text-base font-medium text-teal-700">{toast.title}</p>
             <button
@@ -302,7 +278,7 @@ export default function CheckForm({ onNavigate }: CheckFormProps) {
           <div className="p-3 max-h-64 overflow-y-auto">
             <ul className="space-y-1">
               {toast.lines.map((line, idx) => {
-                const isFullyBooked = /Booked fully/.test(line)
+                const isFullyBooked = /Booked fully|ပြည့်နှက်/.test(line)
                 return (
                   <li
                     key={idx}

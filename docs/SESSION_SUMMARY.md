@@ -1,34 +1,112 @@
-# Session Summary - 2026-04-04
+# Session Summary - 2026-04-12
 
 ## What was done
-- **Header UI Refactoring (3-Column Grid)**:
-  - Redesigned both `Header.tsx` (Shared) and `HeroSection.tsx` (Hero Page) to use a **3-column grid layout**.
-  - **Left**: Fixed `LanguageSwitcher` for immediate access.
-  - **Center**: Perfectly centered the `Logo` for brand prominence.
-  - **Right**: Right-aligned `Hamburger icon` (mobile/tablet) or `AuthButtons` (Desktop).
-  - Cleaned up the header row by removing the redundant "Book Now" button.
-- **Wave-Notch Header Design**:
-  - Introduced a premium "Wave-Notch" concept where the central logo sits within a smooth downward curve.
-  - Implemented `overflow-visible` on nav containers to allow the floating logo to break the linear header line.
-- **Floating Button Optimization**:
-  - Adjusted `FloatingBookButton` and `ScrollToTopButton` for responsive viewports.
-  - Reduced side padding on Mobile & Tablet to **`6` (24px/1.5rem)** to push buttons outward and maximize screen space.
-  - Maintained **`8` (32px/2rem)** padding for Desktop for a balanced look.
-  - Set consistent **`bottom-6`** spacing for mobile/tablet buttons.
-- **Map Attribution UX Enhancement**:
-  - Fixed the persistent MapLibre attribution text issue in `src/components/ui/map.tsx`.
-  - Migrated to built-in `attributionControl: { compact: true }` configuration.
-  - Injected CSS to force attribution text to stay collapsed until the user clicks the info icon.
-- **Navigation Menu Maintenance**:
-  - Verified navigation consistency across page reloads (Hash-based routing).
-  - Responded to user preference for hardcoded English navigation labels in `HeroSection.tsx`.
+
+### 1. Experiences Page Enhancements
+
+#### Feature 1: Quick Info Cards
+- **Feature**: Display Pool, Spa, Dining operating hours in clickable cards
+- **Created**: `src/components/Experiences/QuickInfoCards.tsx`
+- **UI**: 3 color-coded cards (blue for Pool, emerald for Spa, amber for Dining)
+- **Data**: Pool (7:00 AM - 9:00 PM), Spa (9:00 AM - 9:00 PM), Dining (6:30 AM - 11:00 PM)
+- **Navigation**: Click navigates to respective page (swimmingPool, spaAndWellnessCenter, DiningAndBar)
+
+#### Feature 2: Explore Nearby Link
+- **Feature**: Section linking to Location page with nearby attractions description
+- **Created**: `src/components/Experiences/ExploreNearbyLink.tsx`
+- **UI**: Card with map pin icon, description text, and "Explore Location" button
+- **Navigation**: Click navigates to Location page
+
+#### Feature 3: Booking CTA
+- **Feature**: Booking call-to-action section with contact info
+- **Created**: `src/components/Experiences/BookingCTA.tsx`
+- **UI**: Gradient background, phone/email contact info, "Book Now" and "Contact Us" buttons
+- **Navigation**: Book Now → Booking page, Contact Us → Contact page
+
+#### Feature 4: Price Ranges
+- **Feature**: Added price ranges to Spa and Activities cards
+- **Implementation**: Added `priceRange` field to posts data
+- **Data**: Spa ($50 - $200), Activities ($30 - $150)
+- **UI**: Teal-colored price range text below card description
+
+### 2. Bug Fix
+
+#### QuickInfoCards Icon Error
+- **Issue**: `TbSwim` icon doesn't exist in `react-icons/tb`
+- **Error**: TypeScript compilation failed
+- **Fix**: Replaced `TbSwim` with `TbBeach` (consistent with SwimmingPool.tsx)
+- **Result**: TypeScript check passes
+
+### 3. Documentation Updates
+- Updated `CHANGELOG.md` with Experiences page enhancements and bug fix
+- Updated `SESSION_SUMMARY.md` with current session work
 
 ## Current State
-- **UI/UX**: Premium, modern header with a centered logo and clean floating elements.
-- **Mobile Experience**: Optimized button placements and a clutter-free map view.
-- **Code Integrity**: All changes verified with `npm run lint` and `npm run build` (Build: SUCCESS).
+- **Experiences Page**: ✅ Enhanced (Quick Info Cards + Explore Nearby + Booking CTA + Price Ranges)
+- **TypeScript**: ✅ Passes
+- **Build**: ✅ Passes
+
+## Files Modified This Session
+| File | Action |
+|------|--------|
+| `src/components/Experiences/QuickInfoCards.tsx` | Created — clickable hours cards |
+| `src/components/Experiences/ExploreNearbyLink.tsx` | Created — Location page link |
+| `src/components/Experiences/BookingCTA.tsx` | Created — booking CTA section |
+| `src/components/Experiences/Experiences.tsx` | Modified — integrated all new components + price ranges |
+| `docs/CHANGELOG.md` | Updated — added Experiences enhancements |
+| `docs/SESSION_SUMMARY.md` | Updated — current session work |
+
+## Technical Details
+
+### QuickInfoCards Component
+```typescript
+interface QuickInfoCardsProps {
+  onNavigate?: (page: string) => void
+}
+
+const quickInfoCards = [
+  {
+    id: 1,
+    icon: TbBeach,
+    title: 'Swimming Pool',
+    hours: '7:00 AM - 9:00 PM',
+    href: 'swimmingPool',
+    bgColor: 'bg-blue-50',
+    iconColor: 'text-blue-600',
+    borderColor: 'border-blue-200',
+  },
+  // ... Spa and Dining cards
+]
+```
+
+### Price Range Implementation
+```typescript
+// Added to Spa and Activities posts
+priceRange: '$50 - $200'  // Spa
+priceRange: '$30 - $150'  // Activities
+
+// Display in JSX
+{post.priceRange && (
+  <p className="text-sm text-teal-600 font-medium">
+    {post.priceRange}
+  </p>
+)}
+```
+
+### Component Integration
+```typescript
+// Experiences.tsx imports
+import QuickInfoCards from './QuickInfoCards'
+import ExploreNearbyLink from './ExploreNearbyLink'
+import BookingCTA from './BookingCTA'
+
+// Layout order
+<QuickInfoCards onNavigate={onNavigate} />
+<ExploreNearbyLink onNavigate={onNavigate} />
+<BookingCTA onNavigate={onNavigate} />
+```
 
 ## Next Steps
-- Finalize the SVG wave mask implementation for the Header background.
-- Expand Firebase integration for dynamic content management.
-- Complete full-site audit for any remaining hardcoded branding inconsistencies.
+- i18n implementation for Experiences page (deferred per user request)
+- Test all new components in browser
+- Verify navigation works correctly

@@ -91,7 +91,15 @@
     },
     "availableCount": "{{count}} of {{total}} available",
     "guests": "Guests",
-    "size": "sqm"
+    "size": "sqm",
+    "filterByType": "Filter by Type",
+    "sortByPrice": "Sort by Price",
+    "all": "All",
+    "rooms": "Rooms",
+    "suites": "Suites",
+    "default": "Default",
+    "lowToHigh": "Price: Low to High",
+    "highToLow": "Price: High to Low"
   },
   "booking": {
     "title": "Book Your Stay",
@@ -100,7 +108,18 @@
     "guests": "Guests",
     "rooms": "Rooms",
     "search": "Search Availability",
-    "selectDates": "Select dates"
+    "selectDates": "Select dates",
+    "adult": "Adult",
+    "adults": "Adults",
+    "child": "Child",
+    "children": "Children",
+    "checkNow": "Check Now",
+    "ageOfChild": "Age of Child {{number}}",
+    "yearsOld": "{{years}} years old",
+    "childrenAgesNotice": "For accurate room pricing, make sure to enter your children's correct ages.",
+    "availabilityFor": "Availability for {{checkIn}} → {{checkOut}}",
+    "available": "{{count}} of {{total}} available",
+    "bookedFully": "Booked fully for selected dates"
   },
   "activities": {
     "title": "Activities",
@@ -327,6 +346,12 @@
   "gallery": {
     "title": "Gallery",
     "subtitle": "A Glimpse of The Evergreen Hill",
+    "bannerTitle": "The Heart of Highlands",
+    "bannerDesc": "Nestled within the charming town of Kalaw, The Evergreen Hill is your gateway to the legendary Shan Highlands. Explore breathtaking landscapes from our serene and private sanctuary.",
+    "subtitleDesc": "Discover the beauty and elegance of our property through our curated photo collection.",
+    "noItemsFound": "No arrangements found for this category.",
+    "imageError": "Image could not be loaded",
+    "viewDetails": "View details for",
     "categories": {
       "all": "All Photos",
       "hotel": "The Hotel & Scenery",
@@ -368,6 +393,14 @@
       "treks": "Guided Mountain Treks",
       "cycling": "Cycling Through Villages",
       "market": "A Trip to the Local Market"
+    },
+    "pagination": {
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "results": "results",
+      "previous": "Previous",
+      "next": "Next"
     }
   },
   "location": {

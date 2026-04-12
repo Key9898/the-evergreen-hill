@@ -26,10 +26,25 @@ import { pageTransition } from './lib/animations'
 import { FloatingBookButton, BookForm } from './components/Layout'
 
 const VALID_PAGES = new Set([
-  'home', 'roomsAndSuites', 'experiences', 'DiningAndBar', 'swimmingPool',
-  'spaAndWellnessCenter', 'activities', 'gallery', 'ourStory', 'team',
-  'guestReviews', 'location', 'contact', 'events', 'faqs',
-  'termsOfService', 'privacyPolicy', 'profile', 'bookingHistory',
+  'home',
+  'roomsAndSuites',
+  'experiences',
+  'DiningAndBar',
+  'swimmingPool',
+  'spaAndWellnessCenter',
+  'activities',
+  'gallery',
+  'ourStory',
+  'team',
+  'guestReviews',
+  'location',
+  'contact',
+  'events',
+  'faqs',
+  'termsOfService',
+  'privacyPolicy',
+  'profile',
+  'bookingHistory',
 ])
 
 function getInitialPage(): string {

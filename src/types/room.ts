@@ -23,3 +23,14 @@ export type RoomType =
   | 'Presidential Suite'
   | 'Family Suite'
   | 'Honeymoon Suite'
+
+export interface RoomDisplayItem {
+  id: number
+  nameKey: string
+  type: string
+  price: string
+  guests: string
+  size: string
+  features: string[]
+  imageAlt: string
+}

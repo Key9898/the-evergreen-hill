@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import RegisterModal from './RegisterModal'
 import { AuthProvider } from '../../context/AuthContext'
 
@@ -15,9 +15,9 @@ const meta: Meta<typeof RegisterModal> = {
     ),
   ],
   args: {
-    onClose: fn(),
-    onNavigateLogin: fn(),
-    onSuccess: fn(),
+    onClose: vi.fn(),
+    onNavigateLogin: vi.fn(),
+    onSuccess: vi.fn(),
   },
 }
 

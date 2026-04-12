@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from '@storybook/test'
+import { vi } from 'vitest'
 import PaymentForm from './PaymentForm'
 import { PaymentProvider } from '../../context/PaymentContext'
 
@@ -17,8 +17,8 @@ const meta: Meta<typeof PaymentForm> = {
   args: {
     totalAmount: 360,
     currency: 'USD',
-    onCancel: fn(),
-    onSuccess: fn(),
+    onCancel: vi.fn(),
+    onSuccess: vi.fn(),
   },
 }
 

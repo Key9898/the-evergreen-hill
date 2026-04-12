@@ -93,7 +93,17 @@ function MmqrQrCode() {
       <rect x="160" y="182" width="8" height="8" fill="#1a1a1a" />
       {/* MMQR center logo mark */}
       <rect x="88" y="88" width="24" height="24" rx="3" fill="#00786f" />
-      <text x="100" y="104" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold" fontFamily="sans-serif">QR</text>
+      <text
+        x="100"
+        y="104"
+        textAnchor="middle"
+        fill="white"
+        fontSize="10"
+        fontWeight="bold"
+        fontFamily="sans-serif"
+      >
+        QR
+      </text>
     </svg>
   )
 }
@@ -145,9 +155,13 @@ export default function PaymentForm({ totalAmount, currency, onCancel }: Payment
         <p className="text-xs text-slate-400 mt-1">The Evergreen Hill Hotel</p>
       </motion.div>
 
-      <motion.div variants={fadeInUp} className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-6">
+      <motion.div
+        variants={fadeInUp}
+        className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-6"
+      >
         <p className="text-sm text-amber-700">
-          After scanning and completing the payment in your app, tap <strong>"I've Paid"</strong> below.
+          After scanning and completing the payment in your app, tap <strong>"I've Paid"</strong>{' '}
+          below.
         </p>
       </motion.div>
 
